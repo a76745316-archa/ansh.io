@@ -8,7 +8,7 @@
 :root{--bg:#070a12;--cd:#111726;--alt:#172035;--bd:#24324f;--ac:#38bdf8;--gn:#10b981;--am:#f59e0b;--rd:#f43f5e;--tx:#f8fafc;--mt:#94a3b8}
 *{box-sizing:border-box;margin:0;padding:0;font-family:system-ui,-apple-system,sans-serif;-webkit-tap-highlight-color:transparent}
 body{background:var(--bg);color:var(--tx);padding-bottom:85px;min-height:100vh}
-header{background:#111726;border-bottom:1px solid var(--bd);padding:12px 15px;position:sticky;top:0;z-index:40;display:flex;justify-content:space-between;align-items:center}
+header{background:#111726;border-bottom:1px solid var(--bd);padding:12px 14px;position:sticky;top:0;z-index:40;display:flex;justify-content:space-between;align-items:center}
 .br{font-size:1.05rem;font-weight:900;color:var(--ac);letter-spacing:0.5px}
 .stk{background:#f59e0b22;color:var(--am);border:1px solid #f59e0b55;padding:4px 10px;border-radius:20px;font-size:.74rem;font-weight:800}
 .scr{display:none;padding:12px;max-width:500px;margin:0 auto}
@@ -45,9 +45,11 @@ input:focus,select:focus{border-color:var(--ac)}
 .sps{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:8px}
 .sp{flex:1;min-width:36px;text-align:center;padding:6px 2px;background:var(--alt);border:1px solid var(--bd);border-radius:6px;font-size:.7rem;font-weight:800;color:var(--mt);cursor:pointer}
 .sp.active{background:var(--ac);color:#050811}
-.flist{max-height:210px;overflow-y:auto;border:1px solid var(--bd);border-radius:9px;background:#070a12;margin-bottom:9px}
-.frow{display:flex;justify-content:space-between;align-items:center;padding:8px 10px;border-bottom:1px solid #151e30;cursor:pointer}
-.frow.sel{background:#38bdf828;border-left:3px solid var(--ac)}
+.flist{max-height:230px;overflow-y:auto;border:1px solid var(--bd);border-radius:9px;background:#070a12;margin-bottom:9px}
+.frow{display:flex;justify-content:space-between;align-items:center;padding:8px 10px;border-bottom:1px solid #151e30}
+.frow.sel{background:#38bdf824;border-left:3px solid var(--ac)}
+.finfo{flex:1;cursor:pointer}
+.factions{display:flex;gap:4px;margin-left:6px}
 .lrow{background:var(--alt);border:1px solid var(--bd);border-radius:9px;padding:9px;margin-bottom:6px;display:flex;justify-content:space-between;align-items:center}
 .lrow h4{font-size:.8rem;font-weight:700}
 .lrow p{font-size:.66rem;color:var(--mt);margin-top:2px}
@@ -98,13 +100,13 @@ nav.bbar{position:fixed;bottom:0;left:0;width:100%;background:#111726;border-top
   <div class="card">
     <div class="chd"><div class="ctit">📏 Update Stats & Goals</div></div>
     <div class="g3">
-      <div><label>Weight (kg)</label><input type="number" step="0.1" id="i-wt" placeholder="57.5"></div>
+      <div><label>Weight(kg)</label><input type="number" step="0.1" id="i-wt" placeholder="57.5"></div>
       <div><label>Fat %</label><input type="number" step="0.1" id="i-bf" placeholder="14"></div>
-      <div><label>Waist (in)</label><input type="number" step="0.2" id="i-wst" placeholder="29"></div>
+      <div><label>Waist(in)</label><input type="number" step="0.2" id="i-wst" placeholder="29"></div>
     </div>
     <div class="g3">
-      <div><label>Arms (in)</label><input type="number" step="0.2" id="i-arm" placeholder="14"></div>
-      <div><label>Goal Wt (kg)</label><input type="number" step="0.5" id="i-gwt" placeholder="65"></div>
+      <div><label>Arms(in)</label><input type="number" step="0.2" id="i-arm" placeholder="14"></div>
+      <div><label>Goal Wt</label><input type="number" step="0.5" id="i-gwt" placeholder="65"></div>
       <div><label>Cal Goal</label><input type="number" id="i-cal" placeholder="1700"></div>
     </div>
     <button class="btn" onclick="saveProf()">💾 Save Measurements</button>
@@ -114,18 +116,22 @@ nav.bbar{position:fixed;bottom:0;left:0;width:100%;background:#111726;border-top
 <!-- 2. FOOD SECTION -->
 <div id="s-food" class="scr">
   <div class="card">
-    <div class="chd"><div class="ctit">🥘 My Foods & Ingredients</div><span class="bdg" id="fcnt">65+</span></div>
-    <input type="text" id="fsrc" placeholder="🔍 Search (Roti, Dal, Momos, Chaap, Paneer)..." oninput="rFoods()">
+    <div class="chd">
+      <div class="ctit">🥘 Manage Custom Foods</div>
+      <button class="bsm bedt" onclick="openNewFoodPrompt()">+ New Food</button>
+    </div>
+    <input type="text" id="fsrc" placeholder="🔍 Search food (Roti, Dal, Momos, Chaap)..." oninput="rFoods()">
+    
     <div class="flist" id="flist"></div>
 
     <div style="background:var(--alt);border:1px solid var(--ac);border-radius:10px;padding:10px;margin-bottom:9px">
-      <div class="chd"><strong id="sf-nm" style="color:var(--ac);font-size:.84rem">Select Food</strong></div>
+      <div class="chd"><strong id="sf-nm" style="color:var(--ac);font-size:.84rem">Select Food Above</strong></div>
       <label>Serving Quantity (Tap or Type Decimal like 0.45, 0.5, 2.5)</label>
       <div class="sps">
         <div class="sp" onclick="sSrv(0.25)">0.25</div><div class="sp" onclick="sSrv(0.5)">0.5</div><div class="sp" onclick="sSrv(0.75)">0.75</div><div class="sp active" onclick="sSrv(1)">1</div><div class="sp" onclick="sSrv(1.5)">1.5</div><div class="sp" onclick="sSrv(2)">2</div><div class="sp" onclick="sSrv(2.5)">2.5</div><div class="sp" onclick="sSrv(3)">3</div>
       </div>
       <div class="g2">
-        <div><label>Servings</label><input type="number" step="0.05" id="s-srv" value="1" oninput="cFood()"></div>
+        <div><label>Servings (Decimal)</label><input type="number" step="0.05" id="s-srv" value="1" oninput="cFood()"></div>
         <div><label>Calories</label><input type="number" id="s-cal" readonly style="color:var(--gn)"></div>
       </div>
       <div class="g3">
@@ -137,54 +143,34 @@ nav.bbar{position:fixed;bottom:0;left:0;width:100%;background:#111726;border-top
       <button class="btn" id="f-btn" onclick="addFLog()">✓ Log Food</button>
     </div>
 
-    <!-- INGREDIENT & RECIPE EXACT MACRO BUILDER -->
-    <details style="margin-bottom:8px">
-      <summary style="font-size:.74rem;font-weight:700;color:var(--gn);cursor:pointer">🧪 Exact Raw Ingredients Calculator</summary>
-      <div style="margin-top:7px;background:#070a12;border:1px solid var(--bd);border-radius:8px;padding:9px">
-        <label>Pick Raw Ingredient</label>
-        <select id="raw-pick" onchange="calcRawMacro()">
-          <option value="atta">Atta (Wheat Flour) • 340 cal/100g (12g P, 70g C)</option>
-          <option value="rice">Raw Rice • 350 cal/100g (7g P, 78g C)</option>
-          <option value="dal">Raw Moong/Arhar Dal • 340 cal/100g (24g P, 58g C)</option>
-          <option value="soya">Raw Soya Chunks • 345 cal/100g (52g P, 33g C)</option>
-          <option value="paneer">Raw Paneer • 270 cal/100g (19g P, 3g C, 21g F)</option>
-          <option value="ghee">Ghee / Mustard Oil • 900 cal/100g (100g Fat)</option>
-          <option value="potato">Raw Aloo (Potato) • 77 cal/100g (2g P, 17g C)</option>
-          <option value="milk">Toned Milk • 60 cal/100ml (3.2g P, 5g C, 3g F)</option>
-          <option value="sugar">White Sugar • 390 cal/100g (100g Carbs)</option>
-        </select>
+    <details id="custom-food-box" style="margin-bottom:6px">
+      <summary style="font-size:.74rem;font-weight:700;color:var(--ac);cursor:pointer">+ Add / Edit Master Food in Library</summary>
+      <div style="margin-top:7px;background:#070a12;border:1px solid var(--bd);border-radius:8px;padding:8px">
+        <input type="text" id="mf-n" placeholder="Food Name">
         <div class="g2">
-          <div><label>Amount in Grams (or ml)</label><input type="number" id="raw-g" value="50" oninput="calcRawMacro()"></div>
-          <div><label>Yielded Calories</label><input type="number" id="raw-res-c" readonly style="color:var(--gn)"></div>
+          <input type="text" id="mf-u" placeholder="Serving Unit (e.g. 1 serving)">
+          <input type="number" id="mf-c" placeholder="Calories for this serving">
         </div>
         <div class="g3">
-          <div><label>Pro(g)</label><input type="number" id="raw-res-p" readonly></div>
-          <div><label>Carb(g)</label><input type="number" id="raw-res-cb" readonly></div>
-          <div><label>Fat(g)</label><input type="number" id="raw-res-f" readonly></div>
+          <input type="number" step="0.1" id="mf-p" placeholder="Pro(g)">
+          <input type="number" step="0.1" id="mf-cb" placeholder="Carb(g)">
+          <input type="number" step="0.1" id="mf-f" placeholder="Fat(g)">
         </div>
-        <button class="btn bsec" onclick="logRawToFood()">+ Log Calculated Ingredient</button>
-      </div>
-    </details>
-
-    <details>
-      <summary style="font-size:.74rem;font-weight:700;color:var(--ac);cursor:pointer">+ Add Custom Ingredient / Food</summary>
-      <div style="margin-top:7px">
-        <input type="text" id="nf-n" placeholder="Food Name">
-        <div class="g4"><input type="number" id="nf-c" placeholder="Cal"><input type="number" id="nf-p" placeholder="Pro"><input type="number" id="nf-cb" placeholder="Carb"><input type="number" id="nf-f" placeholder="Fat"></div>
-        <button class="btn bsec" onclick="newFood()">Save Forever</button>
+        <input type="hidden" id="mf-edit-index" value="-1">
+        <button class="btn bsec" id="mf-save-btn" onclick="saveMasterFood()">Save to Food Library</button>
       </div>
     </details>
   </div>
-  <div class="card"><div class="chd"><div class="ctit">📋 Today's Food Log</div></div><div id="flog"></div></div>
-</div>
 
-<!-- 3. WORKOUT SECTION -->
+  <div class="card"><div class="chd"><div class="ctit">📋 Today's Food Log</div></div><div id="flog"></div></div>
+  </div>
+  <!-- 3. WORKOUT SECTION -->
 <div id="s-work" class="scr">
   <div class="card">
-    <div class="chd"><div class="ctit">🏋️ Exercise & Heart Logger (230+)</div></div>
+    <div class="chd"><div class="ctit">🏋️ Exercise & Heart Logger (250+)</div></div>
     <label>1. Muscle Group / Heart</label>
     <select id="w-cat" onchange="rEx()">
-      <option value="all">🔥 All Exercises (230+)</option>
+      <option value="all">🔥 All Exercises (250+)</option>
       <option value="Heart">❤️ Heart (Running, Walking, Cardio, HIIT)</option>
       <option value="Bodyweight">🏃 Bodyweight / Calisthenics / Home</option>
       <option value="Chest">Chest</option>
@@ -226,7 +212,7 @@ nav.bbar{position:fixed;bottom:0;left:0;width:100%;background:#111726;border-top
       <strong id="m-tit" style="color:var(--ac);font-size:.9rem">Month</strong>
       <button class="bsm" onclick="cMo(1)">Next ▶</button>
     </div>
-    <p style="font-size:.7rem;color:var(--mt);text-align:center;margin-bottom:8px">👇 Kisi bhi date par click karke us din ka full record dekhein</p>
+    <p style="font-size:.7rem;color:var(--mt);text-align:center;margin-bottom:8px">👇 Date par tap karke us din ka full record dekhein</p>
     <div class="mghd"><div>Su</div><div>Mo</div><div>Tu</div><div>We</div><div>Th</div><div>Fr</div><div>Sa</div></div>
     <div class="mgrid" id="mgrid"></div>
   </div>
@@ -248,240 +234,563 @@ nav.bbar{position:fixed;bottom:0;left:0;width:100%;background:#111726;border-top
   <button class="nbtn" id="nb-food" onclick="tab('food')"><span>🥘</span>Food</button>
   <button class="nbtn" id="nb-work" onclick="tab('work')"><span>🏋️</span>Workout</button>
   <button class="nbtn" id="nb-ins" onclick="tab('ins')"><span>📊</span>Insights</button>
-          </nav>
-          <script>
+</nav>
+
+<script>
 function $(i){return document.getElementById(i)}
 
-// CALIBRATED FOOD LIST (ICMR & INDIAN MACROS ACCURATE)
-var FDATA="Roti (1 pc)|100|3.2|20|0.8,Dal (1 katori)|160|8.5|24|4,Raw paneer (50g)|135|9.5|1.5|10.5,Soya Chunks (50g raw)|172|26|16.5|0.5,Dahi / Curd (1 bowl)|100|5.5|6.5|6,Spring roll (1 serv)|240|5|30|11,Sweet lassi (1 glass)|150|5|22|4.5,Momos steamed (1 pc)|35|1.5|6|0.8,Momos kurkure (1 pc)|85|2|9.5|4.5,Kurkure momos Plate|250|6|28|12,Puri / Bedmi (1 pc)|110|2|13|5.5,Chowmin / Noodles (1 plate)|400|7.5|60|15,Khoya barfi (1 pc)|100|2.5|13|4.5,Soya fried rice|430|17|66|11,Chai / Coffee Hot|80|2|11|3,Cold Coffee|150|4.5|22|5,Chole / Channa|320|13|44|10,Matar chole|110|5.5|17|1.8,Aloo paratha (1 pc)|220|5|32|8.5,Paneer paratha (1 pc)|260|9.5|28|12,Aloo gobhi paratha|200|4.5|30|6.5,Paratha Plain|140|3.5|22|4.5,Chutney / Sauce (1 sp)|45|0.5|8|1.2,Vada|190|4.5|22|9,Pasta|420|10|65|13,Soya besan chila|210|13|24|7,Chila (Besan/sooji/ragi)|160|7|22|5,Paneer bhurji|340|19|7|25,Soya paneer Pulav|580|25|68|20,Malai bread|110|3|14|5,Bread (1 slice)|75|2.5|14|0.8,Biscuit (1 pc)|20|0.4|3.2|0.7,Cookie (1 pc)|45|0.7|6|2,Kachori|250|4.5|28|13,Aloo gobhi|260|4.5|34|12,Ram ladoo (plate)|280|9|32|13,Soya Cutlet (1 pc)|80|4.5|9|2.8,Aloo patties|240|3.5|28|13,Aloo sabzi gravy|280|3.5|38|13,Aloo sabzi dry|190|3|30|6.5,Aloo shimla|260|4|32|13,Aloo tiki|190|3|26|8,Arbi sabzi|180|2.8|28|7,Bhindi sabzi|110|2.5|11|5.5,Aloo baingan|260|3.8|34|12,Aloo gajar|260|3.8|34|12,Aloo patagobhi|260|4|32|12,Atta golgappe plate|190|3.5|34|4.5,Bhaji (pav wali)|320|5.5|38|15,Bhatura homemade|165|4|26|5,Bread pakoda|290|5.5|32|15,Bread roll|240|4.5|30|11,Burger|300|8|38|12,Butter milk+sugar|100|3.5|15|2.5,Butter/Makhan/Malai (1 sp)|70|0.5|0.5|7.5,Desi ghee (1 tsp)|45|0|0|5,Chaap (gravy)|360|14|28|20,Malai chap Half|450|15|26|34,Chocolate (20g)|100|1.2|12|5.5,Dairy milk bar|65|1|8|3.2,Cold drink (500ml)|210|0|53|0,Frooti (150ml)|95|0|24|0,Corn bhutta|100|3.5|21|1.2,Dhokla (1 pc)|50|2|8|1.2,Dosa homemade|150|4|26|3.5,Dosa restaurant|420|8.5|58|17,Fruit Medium|80|1|19|0.3,Fruit Large|150|1.8|36|0.5,Fruit Mini|70|0.8|17|0.2,Gajar Barfi|140|3|18|6,Gajar halwa (200g)|310|6|42|13,Atta halwa|300|4|38|15,Ice cream scoop|180|3|22|9,Ice Cream Stick|150|2.5|18|7.5,Rajma|320|13|42|10,Kadi pakoda|380|10|38|19,Khichdi|290|8.5|46|6.5,Maggi (1 pack)|270|6|40|9.5,Kheer|290|7.5|40|10,Cheese Slice|60|4|0.5|4.8,Pastry|310|3.5|40|15,Jalebi (1 pc)|70|0.5|12|2.2,Khandvi|30|1.5|4|1,Large Snacks/Namkeen|275|5|28|16,Mayo/Cream (1 sp)|70|0.5|1|7,Whey Protein Scoop|120|24|2|1.5,Boiled Egg (1 whole)|72|6.3|0.4|5,White Rice Bowl|195|4|43|0.5,Oats (50g raw)|190|6.5|34|3.5".split(",").map(function(s){var p=s.split("|");return{name:p[0],cal:+p[1],pro:+p[2],carb:+p[3],fat:+p[4]}});
+// ALL 85+ SCREENSHOT FOODS DATA PRELOADED
+var F_DEFAULTS = [
+  {name:"Spring roll",cal:130,u:"1/2 serving",p:2.5,c:16,f:6},
+  {name:"Roti",cal:100,u:"1 serving",p:3.2,c:20,f:0.8},
+  {name:"Sweet lassi",cal:150,u:"1 serving",p:5,c:22,f:4.5},
+  {name:"Momos steamed(1)",cal:70,u:"2 servings",p:3.5,c:11,f:1.2},
+  {name:"Puri/ Bedmi",cal:200,u:"2 servings",p:4,c:26,f:9},
+  {name:"Chowmin/Noodles",cal:450,u:"1 serving",p:8,c:65,f:16},
+  {name:"Khoya barfi",cal:200,u:"2 servings",p:5,c:26,f:9},
+  {name:"Raw paneer (50g)",cal:140,u:"1 serving",p:9.5,c:1.5,f:10.5},
+  {name:"Soya fried rice",cal:450,u:"1 serving",p:18,c:68,f:11},
+  {name:"Chai/Coffee Hot",cal:80,u:"1 serving",p:2,c:11,f:3},
+  {name:"Chole/ Channa",cal:350,u:"1 serving",p:13,c:45,f:12},
+  {name:"Aloo paratha",cal:550,u:"2.5 servings",p:12.5,c:85,f:18},
+  {name:"Chutney/ Sauce",cal:150,u:"3 servings",p:1.5,c:27,f:3.5},
+  {name:"Vada",cal:200,u:"1 serving",p:5,c:24,f:9},
+  {name:"Pasta",cal:450,u:"1 serving",p:11,c:68,f:14},
+  {name:"Cold Coffee",cal:150,u:"1 serving",p:4.5,c:22,f:5},
+  {name:"Soya besan chila",cal:690,u:"3 servings",p:42,c:78,f:22},
+  {name:"Paneer bhurji",cal:360,u:"1 serving",p:20,c:8,f:26},
+  {name:"Dal",cal:153,u:"0.45 serving",p:6.5,c:19,f:5},
+  {name:"Soya paneer Pulav",cal:620,u:"1 serving",p:26,c:72,f:22},
+  {name:"Malai bread",cal:110,u:"1 serving",p:3,c:14,f:5},
+  {name:"Bread",cal:160,u:"2 servings",p:5,c:30,f:2},
+  {name:"Biscuit biskut",cal:120,u:"6 servings",p:2.4,c:19,f:4.2},
+  {name:"Kachori",cal:250,u:"1 serving",p:4.5,c:28,f:13},
+  {name:"Aloo gobhi",cal:300,u:"1 serving",p:5,c:38,f:14},
+  {name:"Ram ladoo(4-6piece)",cal:560,u:"2 servings",p:18,c:64,f:26},
+  {name:"Soya Cutlet",cal:640,u:"8 servings",p:36,c:72,f:22},
+  {name:"Aloo patties",cal:240,u:"1 serving",p:3.5,c:28,f:13},
+  {name:"Aloo sabzi",cal:320,u:"1 serving",p:4,c:42,f:15},
+  {name:"Aloo sabzi dry",cal:200,u:"1 serving",p:3.5,c:32,f:6.5},
+  {name:"Aloo shimla",cal:300,u:"1 serving",p:4.5,c:36,f:14},
+  {name:"Aloo tiki",cal:200,u:"1 serving",p:3.5,c:28,f:8.5},
+  {name:"Arbi sabzi",cal:200,u:"1 serving",p:3,c:30,f:7.5},
+  {name:"Atta golgappe 1plate",cal:200,u:"1 serving",p:4,c:36,f:5},
+  {name:"Bhaji(pav wali)",cal:350,u:"1 serving",p:6,c:42,f:17},
+  {name:"Bhatura (homemade)",cal:165,u:"1 serving",p:4,c:26,f:5},
+  {name:"Bread pakoda",cal:300,u:"1 serving",p:6,c:34,f:15},
+  {name:"Bread roll",cal:250,u:"1 serving",p:5,c:32,f:11},
+  {name:"Burger",cal:300,u:"1 serving",p:8,c:38,f:12},
+  {name:"Burger ( homemade)",cal:300,u:"1 serving",p:9,c:36,f:11},
+  {name:"Butter milk+sugar",cal:100,u:"1 serving",p:3.5,c:15,f:2.5},
+  {name:"Butter/ Makhan/Malai",cal:70,u:"1 one spoon",p:0.5,c:0.5,f:7.5},
+  {name:"Chaap",cal:420,u:"1 serving",p:16,c:32,f:24},
+  {name:"Chila(Besan/sooji/raggi)",cal:160,u:"1 serving",p:7,c:22,f:5},
+  {name:"Chocolate (20g)",cal:100,u:"1 serving",p:1.2,c:12,f:5.5},
+  {name:"Chutney/Sauses",cal:50,u:"1 serving",p:0.5,c:9,f:1.2},
+  {name:"Cold drink",cal:220,u:"500 ml",p:0,c:55,f:0},
+  {name:"Corn bhuutta (1)",cal:100,u:"1 serving",p:3.5,c:21,f:1.2},
+  {name:"Dahi",cal:120,u:"1 serving",p:6,c:8,f:6.5},
+  {name:"Dairy milk chocolate",cal:65,u:"1 serving",p:1,c:8,f:3.2},
+  {name:"Desi ghee(1 teaspoon)",cal:45,u:"1 serving",p:0,c:0,f:5},
+  {name:"Dhokla",cal:50,u:"1 serving",p:2,c:8,f:1.2},
+  {name:"Dosa (homemade)",cal:150,u:"1 serving",p:4,c:26,f:3.5},
+  {name:"Dosa (restaurant)",cal:450,u:"1 serving",p:9,c:62,f:18},
+  {name:"Fruit large",cal:150,u:"1 serving",p:1.8,c:36,f:0.5},
+  {name:"Fruit(Banana/Melon/Mango/Apple/Guava/Orange/Pear)",cal:80,u:"1 serving",p:1,c:19,f:0.3},
+  {name:"GAJAR BARFI",cal:140,u:"1 serving",p:3,c:18,f:6},
+  {name:"Gajar halwa (200g)",cal:310,u:"1 serving",p:6,c:42,f:13},
+  {name:"Ice cream scoop",cal:180,u:"1 serving",p:3,c:22,f:9},
+  {name:"Ice Cream Stick",cal:150,u:"1 serving",p:2.5,c:18,f:7.5},
+  {name:"Atta halwa",cal:300,u:"1 serving",p:4,c:38,f:15},
+  {name:"Bhindi",cal:100,u:"1 serving",p:2.5,c:12,f:4.5},
+  {name:"Cookie(1)",cal:180,u:"4 servings",p:2.8,c:24,f:8},
+  {name:"Rajma",cal:350,u:"1 serving",p:14,c:46,f:11},
+  {name:"Paratha",cal:140,u:"1 serving",p:3.5,c:22,f:4.5},
+  {name:"Maggi noodles",cal:135,u:"1/2 serving",p:3,c:20,f:4.8},
+  {name:"Fruit mini",cal:70,u:"1 serving",p:0.8,c:17,f:0.2},
+  {name:"Kheer",cal:300,u:"1 serving",p:8,c:42,f:11},
+  {name:"Cheese Slice",cal:120,u:"2 servings",p:8,c:1,f:9.6},
+  {name:"Pastry",cal:320,u:"1 serving",p:4,c:42,f:15},
+  {name:"Paneer paratha",cal:440,u:"2 servings",p:18,c:56,f:16},
+  {name:"Momos kurkure(1)",cal:450,u:"5 servings",p:11,c:50,f:22.5},
+  {name:"Khichdi",cal:330,u:"1.1 servings",p:9.5,c:51,f:7.5},
+  {name:"Frooti juice (150ml)",cal:100,u:"1 serving",p:0,c:25,f:0},
+  {name:"Aloo baingan",cal:300,u:"1 serving",p:4,c:38,f:14},
+  {name:"Aloo gajar",cal:300,u:"1 serving",p:4,c:38,f:14},
+  {name:"Aloo gobhi paratha",cal:200,u:"1 serving",p:4.5,c:30,f:6.5},
+  {name:"Aloo patagobhi",cal:300,u:"1 serving",p:4.5,c:36,f:14},
+  {name:"Jalebi 1 piece (20g)",cal:70,u:"1 serving",p:0.5,c:12,f:2.2},
+  {name:"Kadi pakoda",cal:400,u:"1 serving",p:11,c:42,f:20},
+  {name:"Khandvi",cal:30,u:"1 serving",p:1.5,c:4,f:1},
+  {name:"Kurkure moms",cal:250,u:"1 serving",p:6,c:28,f:12},
+  {name:"Large Snacks/ namkeen",cal:275,u:"1 serving",p:5,c:28,f:16},
+  {name:"Malai chap",cal:450,u:"1 half plate 200-300 g",p:18,c:32,f:28},
+  {name:"Malai/Meonese/Creame(1spoon)",cal:70,u:"1 serving",p:0.5,c:1,f:7},
+  {name:"Matar chole",cal:100,u:"1 serving",p:5,c:16,f:1.5},
+  {name:"Soya Pulav",cal:550,u:"1 serving",p:22,c:72,f:16},
+  {name:"Sprouts",cal:180,u:"1 serving",p:12,c:30,f:1.5},
+  {name:"Suji Kulcha",cal:150,u:"1 serving",p:4.5,c:28,f:2.5},
+  {name:"Taco/ Wraps(junk)",cal:250,u:"1 serving",p:7,c:32,f:10.5},
+  {name:"Tinda",cal:250,u:"1 serving",p:3.5,c:28,f:12},
+  {name:"Tofu(100g)",cal:100,u:"1 serving",p:11,c:2,f:5.5},
+  {name:"Vegetable Daliya",cal:320,u:"1 serving",p:9,c:58,f:5},
+  {name:"Pyaz paratha",cal:200,u:"1 serving",p:4.5,c:30,f:6.5},
+  {name:"Rasgulla",cal:80,u:"1 serving",p:1.5,c:18,f:0.4},
+  {name:"Saboodana pakoda",cal:55,u:"1 serving",p:0.8,c:9,f:2},
+  {name:"Samak Rice",cal:260,u:"1 serving",p:4.5,c:56,f:1},
+  {name:"Samosa",cal:280,u:"1 serving",p:4.5,c:32,f:15},
+  {name:"Shahi Paneer",cal:420,u:"1 serving",p:16,c:14,f:32},
+  {name:"Soya granules (10g)",cal:35,u:"1 serving",p:5.2,c:3.3,f:0.1},
+  {name:"Momos Fried(1)",cal:65,u:"1.0 serving",p:2,c:8,f:3},
+  {name:"Namak pare",cal:240,u:"1 serving",p:3.5,c:28,f:12.5},
+  {name:"Nan Roti",cal:180,u:"1 serving",p:5,c:32,f:3.5},
+  {name:"Oil",cal:75,u:"1 serving",p:0,c:0,f:8.5},
+  {name:"Oil - Table Spoon",cal:120,u:"1 serving",p:0,c:0,f:13.5},
+  {name:"Papad",cal:280,u:"1 serving",p:18,c:48,f:1.5},
+  {name:"Pav bun one piece",cal:110,u:"1 serving",p:3.5,c:22,f:1},
+  {name:"Pizza slice",cal:135,u:"1 serving",p:5.5,c:18,f:4.5},
+  {name:"Pulav( 1 katori)",cal:310,u:"1 serving",p:5.5,c:52,f:8.5},
+  {name:"Matar Paneer",cal:400,u:"1 serving",p:16,c:18,f:28},
+  {name:"Mathi",cal:150,u:"1 serving",p:2.2,c:16,f:8.5},
+  {name:"Milk Cake",cal:120,u:"1 serving",p:3,c:16,f:5},
+  {name:"Mini rasgulla",cal:30,u:"1 serving",p:0.6,c:7,f:0.2},
+  {name:"Mini Snacks / Namkeen/ Chips",cal:140,u:"1 serving",p:2.5,c:16,f:7.5},
+  {name:"Whey Protein Scoop",cal:120,u:"1 scoop",p:24,c:2,f:1.5},
+  {name:"Boiled Egg (1 whole)",cal:72,u:"1 egg",p:6.3,c:0.5,f:5},
+  {name:"White Rice Bowl",cal:195,u:"150g cooked",p:4,c:43,f:0.5},
+  {name:"Oats (50g raw)",cal:190,u:"50g dry",p:6.5,c:34,f:3.5}
+];
+</script>
+<script>
+// 254 EXERCISES (HEART, BODYWEIGHT, GYM)
+var EDATA="Heart:Outdoor Running:10.5,Heart:Outdoor Sprinting:14,Heart:Treadmill Running:10,Heart:Treadmill Incline Walk:8.5,Heart:Brisk Walking:5.5,Heart:Normal Walking:3.8,Heart:HIIT Sprints:13.5,Heart:Jump Rope / Skipping:11.5,Heart:Double Unders Skipping:13,Heart:Stationary Bike / Cycling:8,Heart:Spin Bike HIIT:12,Heart:Outdoor Cycling:8.5,Heart:StairMaster / StepMill:9.5,Heart:Building Stair Climbing:10,Heart:Elliptical Cross Trainer:7.5,Heart:Rowing Machine Cardio:9,Heart:Rowing Machine HIIT:12.5,Heart:Shadow Boxing Fast:9,Heart:Heavy Punching Bag:10.5,Heart:Jumping Jacks Cardio:8,Heart:High Knees Running:9.5,Heart:Mountain Climbers Cardio:9.5,Heart:Burpees Cardio:12,Heart:Battle Ropes Waves:11,Heart:Freestyle Swimming:10,Heart:Agility Ladder Drills:8,Heart:Shuttle Run Sprints:11.5,Heart:Bear Crawls Cardio:9,Heart:Box Jumps Plyometric:10,Heart:A-Skips Track Drill:8,Bodyweight:Standard Push-ups:7,Bodyweight:Wide Grip Push-ups:7,Bodyweight:Diamond Push-ups:7.5,Bodyweight:Decline Push-ups:7.5,Bodyweight:Incline Push-ups:6,Bodyweight:Archer Push-ups:8,Bodyweight:Pike Push-ups:7.5,Bodyweight:Handstand Push-ups Wall:9,Bodyweight:Pull-ups Overhand:8.5,Bodyweight:Chin-ups Underhand:8.5,Bodyweight:Neutral Grip Pull-ups:8.5,Bodyweight:Inverted Bodyweight Rows:7,Bodyweight:Parallel Bar Dips:8,Bodyweight:Bench Tricep Dips:6.5,Bodyweight:Muscle-ups Bar:11,Bodyweight:Hindu Dand Push-ups:8.5,Bodyweight:Hindu Baithak Squats:7.5,Bodyweight:Pistol Squats Single-Leg:9,Bodyweight:Jump Squats:10,Bodyweight:Walking Lunges:7,Bodyweight:Bulgarian Split Squats BW:7.5,Bodyweight:Glute Bridges BW:6,Bodyweight:Single-Leg Calf Raises:5,Bodyweight:Burpees Full Chest-to-Floor:12,Bodyweight:L-Sit Hold:7,Bodyweight:Hollow Body Hold:6,Bodyweight:Superman Back Ext:5,Bodyweight:Plank Hold:5,Bodyweight:Side Plank Hold:5.5,Bodyweight:Dragon Flags:8,Bodyweight:Hanging Knee Raises:6,Bodyweight:Hanging Leg Raises:6.5,Chest:Barbell Bench Press:6.5,Chest:Incline Barbell Press 30deg:6.5,Chest:Incline Barbell Press 45deg:6.5,Chest:Decline Barbell Press:6,Chest:Flat Dumbbell Press:6.5,Chest:Incline Dumbbell Press 30deg:6.5,Chest:Incline Dumbbell Press 45deg:6.5,Chest:Decline Dumbbell Press:6,Chest:Flat Dumbbell Flyes:5.5,Chest:Incline Dumbbell Flyes:5.5,Chest:Cable Crossover High-to-Low:5.5,Chest:Middle Cable Flyes:5.5,Chest:Low-to-High Cable Flyes:5.5,Chest:Pec Deck Machine Fly:5.5,Chest:Seated Chest Press Machine:6,Chest:Incline Chest Press Machine:6,Chest:Smith Machine Flat Bench:6,Chest:Smith Machine Incline Bench:6,Chest:Weighted Chest Dips:8,Chest:Dumbbell Chest Pullover:5.5,Chest:Landmine Standing Chest Press:6.5,Chest:Kneeling Cable Chest Press:6,Chest:Floor Dumbbell Press:6,Chest:Neutral Grip DB Press:6,Chest:Svend Press Plate:5,Chest:Deficit Push-ups:7.5,Chest:Close-Grip Incline Press:6.5,Chest:Guillotine Press:6,Chest:Hex Press Dumbbell:6,Chest:Cable Iron Cross:5.5,Chest:Pin Press Bench:7,Chest:Spoto Press Bench:7,Back:Deadlift Barbell:9,Back:Sumo Deadlift:9,Back:Trap Bar Hex Bar Deadlift:8.5,Back:Barbell Bent-Over Row Overhand:7.5,Back:Barbell Bent Row Underhand:7.5,Back:Pendlay Row:8,Back:Lat Pulldown Wide Grip:6.5,Back:Lat Pulldown Close-Grip V-Bar:6.5,Back:Lat Pulldown Underhand Reverse:6.5,Back:Single-Arm Cable Lat Pulldown:6,Back:Seated Cable Row V-Bar:6.5,Back:Seated Cable Row Wide Bar:6.5,Back:One-Arm Dumbbell Row:6.5,Back:Chest-Supported Incline DB Row:6.5,Back:T-Bar Row Chest Supported:7,Back:T-Bar Row Free Weight:7.5,Back:Meadows Row Landmine:7,Back:Straight-Arm Cable Lat Pushdown:5.5,Back:Lat Pullover Machine:6,Back:Cable Face Pulls:5,Back:Back Hyperextensions:5.5,Back:Good Mornings Barbell:6.5,Back:Barbell Shrugs Heavy:5.5,Back:Dumbbell Shrugs Standing:5,Back:Smith Machine Shrugs:5,Back:Cable Shrugs:5,Back:Rack Pulls Above Knee:8,Back:Neutral Grip Weighted Pull-ups:8.5,Back:Kroc Rows Heavy DB:7.5,Back:Incline Bench DB Shrugs:5,Back:Seal Row Bench:7,Back:Deficit Deadlift:9,Back:Snatch Grip Deadlift:9,Back:Single Arm Cable Row:6,Back:Wide Grip Cable Row:6.5,Shoulders:Overhead Barbell Military Press:7,Shoulders:Seated Overhead Barbell Press:6.5,Shoulders:Seated Dumbbell Press:6.5,Shoulders:Standing Dumbbell Press:7,Shoulders:Arnold Dumbbell Press:6.5,Shoulders:Smith Machine Shoulder Press:6,Shoulders:Machine Shoulder Press:6,Shoulders:Dumbbell Lateral Raises Standing:5.5,Shoulders:Seated DB Lateral Raises:5.5,Shoulders:Lean-Away Cable Lateral Raises:5.5,Shoulders:Behind-the-Back Cable Lateral:5.5,Shoulders:Dumbbell Front Raises:5,Shoulders:Cable Front Rope Raises:5,Shoulders:Barbell Front Raises:5.5,Shoulders:Plate Front Raises:5,Shoulders:Reverse Pec Deck Rear Delt:5,Shoulders:Seated Bent-Over DB Rear Delt:5,Shoulders:Incline Bench Rear Delt Fly:5,Shoulders:Cable Face Pulls High Pulley:5,Shoulders:Upright Row Barbell:6,Shoulders:Upright Row Cable/EZ Bar:5.5,Shoulders:Single-Arm Landmine Press:6.5,Shoulders:Bradford Press Barbell:6.5,Shoulders:Dumbbell Y-Raises Incline:5,Shoulders:Lu Raises Full Range:6,Shoulders:Push Press Barbell:7.5,Shoulders:Dumbbell Scaption:5,Shoulders:Z-Press Seated Floor:7,Shoulders:Cable Rear Delt Flyes:5,Shoulders:Cuban Press Rotation:5,Arms:Barbell Bicep Curls:5,Arms:EZ-Bar Bicep Curls:5,Arms:Seated Incline Dumbbell Curls:5,Arms:Standing DB Alternating Curls:5,Arms:Dumbbell Hammer Curls:5,Arms:Cable Rope Hammer Curls:5,Arms:Preacher Curls EZ Bar:5,Arms:Preacher Curls DB Single Arm:4.5,Arms:Preacher Machine Curl:5,Arms:Concentration Dumbbell Curls:4.5,Arms:Spider Curls Incline Bench:5,Arms:High Cable Bicep Curls Hercules:5,Arms:Reverse Grip Barbell Curls:5,Arms:Zottman Curls:5,Arms:Drag Curls Barbell:5,Arms:Cable Straight Bar Bicep Curls:5,Arms:Tricep Cable Rope Pushdown:5,Arms:Tricep Cable Straight Bar Pushdown:5,Arms:Tricep Cable V-Bar Pushdown:5,Arms:Overhead Cable Rope Tricep Ext:5.5,Arms:Seated Overhead DB Tricep Ext:5.5,Arms:Standing Overhead EZ-Bar Ext:5.5,Arms:EZ-Bar Skull Crushers Flat:5.5,Arms:Incline DB Skull Crushers:5.5,Arms:Close-Grip Barbell Bench Press:6.5,Arms:Single-Arm Cable Kickbacks:4.5,Arms:Dumbbell Tricep Kickbacks:4.5,Arms:Weighted Bench Tricep Dips:6.5,Arms:JM Press Barbell:6.5,Arms:Tate Press Dumbbell:5.5,Arms:Barbell Wrist Curls Palms Up:4,Arms:Reverse Barbell Wrist Curls:4,Arms:Behind-Back Barbell Wrist Curls:4,Arms:Farmer's Walk Grip Carries:7.5,Arms:Plate Pinch Holds Grip:5,Legs:Barbell Back Squat High Bar:9,Legs:Barbell Back Squat Low Bar:9,Legs:Barbell Front Squat:9,Legs:45deg Leg Press Heavy:8,Legs:Leg Press High & Wide Stance:8,Legs:Hack Squat Machine:8.5,Legs:V-Squat Machine:8,Legs:Smith Machine Squats:8,Legs:Romanian Deadlift Barbell RDL:8,Legs:Romanian Deadlift DB RDL:7.5,Legs:Stiff-Legged Deadlift:8,Legs:Bulgarian Split Squats DB:8.5,Legs:Bulgarian Split Squats Barbell:8.5,Legs:Walking Dumbbell Lunges:7.5,Legs:Barbell Reverse Lunges:7.5,Legs:Goblet Squats Heavy DB:7,Legs:Leg Extension Machine:6,Legs:Single-Leg Extension Machine:6,Legs:Lying Hamstring Leg Curls:6,Legs:Seated Hamstring Leg Curls:6,Legs:Standing Single-Leg Hamstring Curl:6,Legs:Barbell Hip Thrusts Glutes:7.5,Legs:Dumbbell Hip Thrusts:6.5,Legs:Cable Glute Kickbacks:5,Legs:Cable Pull-Throughs:6,Legs:Sissy Squats BW/Machine:6.5,Legs:Standing Calf Raises Machine:5,Legs:Seated Calf Raises Soleus:4.5,Legs:Leg Press Calf Press:5,Legs:Donkey Calf Raises:5,Legs:Single-Leg DB Calf Raises:4.5,Legs:Adductor Machine Inner Thigh:5,Legs:Abductor Machine Glute Med:5,Legs:Zercher Squat:8.5,Legs:Box Squats Barbell:8,Core:Hanging Leg Raises Strict:6.5,Core:Hanging Knee Raises:6,Core:Captain's Chair Leg Raises:6,Core:Kneeling Cable Crunches Rope:6,Core:Ab Wheel Rollout Kneeling:6.5,Core:Ab Wheel Rollout Standing:8,Core:Decline Bench Weighted Crunches:6,Core:Russian Twists Weighted:6,Core:Cable Woodchoppers High-to-Low:6,Core:Cable Woodchoppers Low-to-High:6,Core:Bicycle Crunches Slow:6,Core:Planks Weighted Core Hold:5,Core:Side Planks Dips:5.5,Core:Dragon Flags:8,Core:Reverse Crunches Flat Bench:5.5,Core:L-Sit Hold:7,Core:V-Ups Toe Touch:6,Core:Hollow Body Rock/Hold:6,Core:Bird Dog Stability:5,Core:Dead Bug Core:5,Core:Suitcase Carries Single-Arm:6.5,Core:Standing DB Side Bends:5,Core:Cable Pallof Press:5,Core:Flutter Kicks:5.5,Core:Scissor Kicks:5.5".split(",").map(function(s){var p=s.split(":");return{group:p[0],name:p[1],cpm:+p[2]}});
 
-// 230+ EXERCISES DATABASE (Heart, Bodyweight, Chest, Back, Shoulders, Arms, Legs, Core)
-var EDATA="Heart:Outdoor Running:10.5,Heart:Outdoor Sprinting:14,Heart:Treadmill Running:10,Heart:Treadmill Incline Walk:8.5,Heart:Brisk Walking:5.5,Heart:Normal Walking:3.8,Heart:HIIT Sprints:13.5,Heart:Jump Rope / Skipping:11.5,Heart:Jump Rope Speed/Double Unders:13,Heart:Stationary Bike / Cycling:8,Heart:Bike HIIT Sprints:12,Heart:Outdoor Cycling:8.5,Heart:StairMaster / StepMill:9.5,Heart:Building Stair Climbing:10,Heart:Elliptical Cross Trainer:7.5,Heart:Rowing Machine:9,Heart:Rowing HIIT:12.5,Heart:Shadow Boxing:9,Heart:Heavy Bag Boxing:10.5,Heart:Jumping Jacks:8,Heart:High Knees:9.5,Heart:Mountain Climbers Cardio:9.5,Heart:Burpees Cardio:12,Heart:Battle Ropes:11,Heart:Swimming Freestyle:10,Heart:Agility Ladder Drills:8,Heart:Shuttle Runs:11.5,Bodyweight:Standard Push-ups:7,Bodyweight:Wide Push-ups:7,Bodyweight:Diamond Push-ups:7.5,Bodyweight:Decline Push-ups:7.5,Bodyweight:Incline Push-ups:6,Bodyweight:Archer Push-ups:8,Bodyweight:Pike Push-ups:7.5,Bodyweight:Handstand Push-ups Wall:9,Bodyweight:Pull-ups Overhand:8.5,Bodyweight:Chin-ups Underhand:8.5,Bodyweight:Neutral Grip Pull-ups:8.5,Bodyweight:Inverted Bodyweight Rows:7,Bodyweight:Parallel Bar Dips:8,Bodyweight:Bench Tricep Dips:6.5,Bodyweight:Muscle-ups Bar/Rings:11,Bodyweight:Hindu Dand Push-ups:8.5,Bodyweight:Hindu Baithak Squats:7.5,Bodyweight:Pistol Squats Single-Leg:9,Bodyweight:Jump Squats:10,Bodyweight:Walking Lunges:7,Bodyweight:Bulgarian Split Squats BW:7.5,Bodyweight:Glute Bridges BW:6,Bodyweight:Single-Leg Calf Raises:5,Bodyweight:Bear Crawls:9,Bodyweight:Burpees Chest to Floor:12,Bodyweight:L-Sit Hold:7,Bodyweight:Hollow Body Hold:6,Bodyweight:Superman Back Extension:5,Chest:Barbell Bench Press:6.5,Chest:Incline Barbell Press 30deg:6.5,Chest:Incline Barbell Press 45deg:6.5,Chest:Decline Barbell Press:6,Chest:Flat Dumbbell Press:6.5,Chest:Incline Dumbbell Press 30deg:6.5,Chest:Incline Dumbbell Press 45deg:6.5,Chest:Decline Dumbbell Press:6,Chest:Dumbbell Flat Flyes:5.5,Chest:Incline Dumbbell Flyes:5.5,Chest:Cable Crossover High-to-Low:5.5,Chest:Middle Cable Flyes:5.5,Chest:Low-to-High Cable Flyes:5.5,Chest:Pec Deck Machine Fly:5.5,Chest:Seated Chest Press Machine:6,Chest:Incline Chest Press Machine:6,Chest:Smith Machine Flat Bench:6,Chest:Smith Machine Incline Bench:6,Chest:Weighted Chest Dips:8,Chest:Dumbbell Chest Pullover:5.5,Chest:Landmine Standing Chest Press:6.5,Chest:Kneeling Cable Chest Press:6,Chest:Floor Dumbbell Press:6,Chest:Neutral Grip Dumbbell Press:6,Chest:Svend Press Plate:5,Chest:Deficit Push-ups:7.5,Back:Deadlift Barbell:9,Back:Sumo Deadlift:9,Back:Trap Bar Hex Bar Deadlift:8.5,Back:Barbell Bent-Over Row Overhand:7.5,Back:Barbell Bent Row Underhand Yates:7.5,Back:Pendlay Row:8,Back:Lat Pulldown Wide Grip:6.5,Back:Lat Pulldown Close-Grip V-Bar:6.5,Back:Lat Pulldown Underhand Reverse:6.5,Back:Single-Arm Cable Lat Pulldown:6,Back:Seated Cable Row V-Bar:6.5,Back:Seated Cable Row Wide Bar:6.5,Back:One-Arm Dumbbell Row:6.5,Back:Chest-Supported Incline DB Row:6.5,Back:T-Bar Row Chest Supported:7,Back:T-Bar Row Free Weight:7.5,Back:Meadows Row Landmine:7,Back:Straight-Arm Cable Lat Pushdown:5.5,Back:Lat Pullover Machine:6,Back:Cable Face Pulls:5,Back:Back Hyperextensions:5.5,Back:Good Mornings Barbell:6.5,Back:Barbell Shrugs Heavy:5.5,Back:Dumbbell Shrugs Standing:5,Back:Smith Machine Shrugs:5,Back:Cable Shrugs:5,Back:Rack Pulls Above Knee:8,Back:Neutral Grip Weighted Pull-ups:8.5,Back:Kroc Rows Heavy DB:7.5,Back:Incline Bench DB Shrugs:5,Shoulders:Overhead Barbell Military Press:7,Shoulders:Seated Overhead Barbell Press:6.5,Shoulders:Seated Dumbbell Press:6.5,Shoulders:Standing Dumbbell Press:7,Shoulders:Arnold Dumbbell Press:6.5,Shoulders:Smith Machine Shoulder Press:6,Shoulders:Machine Shoulder Press:6,Shoulders:Dumbbell Lateral Raises Standing:5.5,Shoulders:Seated DB Lateral Raises:5.5,Shoulders:Lean-Away Cable Lateral Raises:5.5,Shoulders:Behind-the-Back Cable Lateral:5.5,Shoulders:Dumbbell Front Raises:5,Shoulders:Cable Front Rope Raises:5,Shoulders:Barbell Front Raises:5.5,Shoulders:Plate Front Raises:5,Shoulders:Reverse Pec Deck Rear Delt:5,Shoulders:Seated Bent-Over DB Rear Delt:5,Shoulders:Incline Bench Rear Delt Fly:5,Shoulders:Cable Face Pulls High Pulley:5,Shoulders:Upright Row Barbell:6,Shoulders:Upright Row Cable/EZ Bar:5.5,Shoulders:Single-Arm Landmine Press:6.5,Shoulders:Bradford Press Barbell:6.5,Shoulders:Dumbbell Y-Raises Incline:5,Shoulders:Lu Raises Full Range:6,Arms:Barbell Bicep Curls:5,Arms:EZ-Bar Bicep Curls:5,Arms:Seated Incline Dumbbell Curls:5,Arms:Standing DB Alternating Curls:5,Arms:Dumbbell Hammer Curls:5,Arms:Cable Rope Hammer Curls:5,Arms:Preacher Curls EZ Bar:5,Arms:Preacher Curls DB Single Arm:4.5,Arms:Preacher Machine Curl:5,Arms:Concentration Dumbbell Curls:4.5,Arms:Spider Curls Incline Bench:5,Arms:High Cable Bicep Curls Hercules:5,Arms:Reverse Grip Barbell Curls:5,Arms:Zottman Curls:5,Arms:Drag Curls Barbell:5,Arms:Cable Straight Bar Bicep Curls:5,Arms:Tricep Cable Rope Pushdown:5,Arms:Tricep Cable Straight Bar Pushdown:5,Arms:Tricep Cable V-Bar Pushdown:5,Arms:Overhead Cable Rope Tricep Ext:5.5,Arms:Seated Overhead DB Tricep Ext:5.5,Arms:Standing Overhead EZ-Bar Ext:5.5,Arms:EZ-Bar Skull Crushers Flat:5.5,Arms:Incline DB Skull Crushers:5.5,Arms:Close-Grip Barbell Bench Press:6.5,Arms:Single-Arm Cable Kickbacks:4.5,Arms:Dumbbell Tricep Kickbacks:4.5,Arms:Weighted Bench Tricep Dips:6.5,Arms:JM Press Barbell:6.5,Arms:Tate Press Dumbbell:5.5,Arms:Barbell Wrist Curls Palms Up:4,Arms:Reverse Barbell Wrist Curls:4,Arms:Behind-Back Barbell Wrist Curls:4,Arms:Farmer's Walk Grip Carries:7.5,Arms:Plate Pinch Holds Grip:5,Legs:Barbell Back Squat High Bar:9,Legs:Barbell Back Squat Low Bar:9,Legs:Barbell Front Squat:9,Legs:45deg Leg Press Heavy:8,Legs:Leg Press High & Wide Stance:8,Legs:Hack Squat Machine:8.5,Legs:V-Squat Machine:8,Legs:Smith Machine Squats:8,Legs:Romanian Deadlift Barbell RDL:8,Legs:Romanian Deadlift DB RDL:7.5,Legs:Stiff-Legged Deadlift:8,Legs:Bulgarian Split Squats DB:8.5,Legs:Bulgarian Split Squats Barbell:8.5,Legs:Walking Dumbbell Lunges:7.5,Legs:Barbell Reverse Lunges:7.5,Legs:Goblet Squats Heavy DB:7,Legs:Leg Extension Machine:6,Legs:Single-Leg Extension Machine:6,Legs:Lying Hamstring Leg Curls:6,Legs:Seated Hamstring Leg Curls:6,Legs:Standing Single-Leg Hamstring Curl:6,Legs:Barbell Hip Thrusts Glutes:7.5,Legs:Dumbbell Hip Thrusts:6.5,Legs:Cable Glute Kickbacks:5,Legs:Cable Pull-Throughs:6,Legs:Sissy Squats BW/Machine:6.5,Legs:Standing Calf Raises Machine:5,Legs:Seated Calf Raises Soleus:4.5,Legs:Leg Press Calf Press:5,Legs:Donkey Calf Raises:5,Legs:Single-Leg DB Calf Raises:4.5,Legs:Adductor Machine Inner Thigh:5,Legs:Abductor Machine Glute Med:5,Legs:Zercher Squat:8.5,Legs:Box Squats Barbell:8,Core:Hanging Leg Raises Strict:6.5,Core:Hanging Knee Raises:6,Core:Captain's Chair Leg Raises:6,Core:Kneeling Cable Crunches Rope:6,Core:Ab Wheel Rollout Kneeling:6.5,Core:Ab Wheel Rollout Standing:8,Core:Decline Bench Weighted Crunches:6,Core:Russian Twists Weighted:6,Core:Cable Woodchoppers High-to-Low:6,Core:Cable Woodchoppers Low-to-High:6,Core:Bicycle Crunches Slow:6,Core:Planks Weighted Core Hold:5,Core:Side Planks Dips:5.5,Core:Dragon Flags:8,Core:Reverse Crunches Flat Bench:5.5,Core:L-Sit Hold:7,Core:V-Ups Toe Touch:6,Core:Hollow Body Rock/Hold:6,Core:Bird Dog Stability:5,Core:Dead Bug Core:5,Core:Suitcase Carries Single-Arm:6.5,Core:Standing DB Side Bends:5,Core:Cable Pallof Press:5,Core:Flutter Kicks:5.5,Core:Scissor Kicks:5.5".split(",").map(function(s){var p=s.split(":");return{group:p[0],name:p[1],cpm:+p[2]}});
+var curDt = new Date().toISOString().split('T')[0];
+var yr = new Date().getFullYear(), mo = new Date().getMonth(), inDt = curDt;
+var selF = null;
 
-var curDt=new Date().toISOString().split('T')[0], selF=FDATA[0], yr=new Date().getFullYear(), mo=new Date().getMonth(), inDt=curDt;
-var DB={cfg:{cal:1700,pro:120,stWt:57,glWt:65},custom:[],meals:{},work:{},stat:{}};
-try{var sv=localStorage.getItem('ash_os_v6')||window.name;if(sv&&sv.indexOf('{')===0)DB=JSON.parse(sv);}catch(e){}
+var DB = {
+  cfg: {cal:1700, pro:120, stWt:57, glWt:65},
+  foods: JSON.parse(JSON.stringify(F_DEFAULTS)),
+  meals: {},
+  work: {},
+  stat: {}
+};
+
+try {
+  var sv = localStorage.getItem('ash_os_v9') || window.name;
+  if(sv && sv.indexOf('{') === 0) {
+    var parsed = JSON.parse(sv);
+    if(parsed.foods && parsed.foods.length) DB.foods = parsed.foods;
+    if(parsed.cfg) DB.cfg = parsed.cfg;
+    if(parsed.meals) DB.meals = parsed.meals;
+    if(parsed.work) DB.work = parsed.work;
+    if(parsed.stat) DB.stat = parsed.stat;
+  }
+} catch(e){}
+
+selF = DB.foods[0];
 
 function save(){
-  var s=JSON.stringify(DB);
-  try{localStorage.setItem('ash_os_v6',s)}catch(e){}
-  try{window.name=s}catch(e){}
+  var s = JSON.stringify(DB);
+  try{localStorage.setItem('ash_os_v9', s)}catch(e){}
+  try{window.name = s}catch(e){}
   upUI();
 }
+
 function tab(t){
   ['prof','food','work','ins'].forEach(function(k){
-    $('s-'+k).className='scr'+(k===t?' active':'');
-    $('nb-'+k).className='nbtn'+(k===t?' active':'');
+    $('s-'+k).className = 'scr' + (k===t ? ' active' : '');
+    $('nb-'+k).className = 'nbtn' + (k===t ? ' active' : '');
   });
-  if(t==='ins'){rCal();sRep(curDt);}
+  if(t === 'ins'){ rCal(); sRep(curDt); }
 }
+
 function rStrip(){
-  var b=$('cstrip');b.innerHTML='';var nw=new Date();
-  for(var i=13;i>=0;i--){
-    var d=new Date();d.setDate(nw.getDate()-i);
-    var iso=d.toISOString().split('T')[0];
-    var has=(DB.meals[iso]&&DB.meals[iso].length)||(DB.work[iso]&&DB.work[iso].length)||DB.stat[iso];
-    var el=document.createElement('div');
-    el.className='cp'+(iso===curDt?' active':'');
-    el.innerHTML='<div class="dw">'+d.toLocaleDateString('en-US',{weekday:'short'})+'</div><div class="dn">'+d.getDate()+'</div>'+(has?'<div class="dt"></div>':'');
-    (function(dt){el.onclick=function(){curDt=dt;rStrip();upUI();};})(iso);
+  var b = $('cstrip'); b.innerHTML = '';
+  var nw = new Date();
+  for(var i=13; i>=0; i--){
+    var d = new Date(); d.setDate(nw.getDate() - i);
+    var iso = d.toISOString().split('T')[0];
+    var has = (DB.meals[iso] && DB.meals[iso].length) || (DB.work[iso] && DB.work[iso].length) || DB.stat[iso];
+    var el = document.createElement('div');
+    el.className = 'cp' + (iso === curDt ? ' active' : '');
+    el.innerHTML = '<div class="dw">' + d.toLocaleDateString('en-US',{weekday:'short'}) + '</div><div class="dn">' + d.getDate() + '</div>' + (has ? '<div class="dt"></div>' : '');
+    (function(dt){ el.onclick = function(){ curDt = dt; rStrip(); upUI(); }; })(iso);
     b.appendChild(el);
   }
-  $('top-dt').innerText='Date: '+curDt;
+  $('top-dt').innerText = 'Date: ' + curDt;
 }
-function allF(){return (DB.custom||[]).concat(FDATA);}
+
 function rFoods(){
-  var q=($('fsrc').value||'').toLowerCase(), b=$('flist'), all=allF();
-  $('fcnt').innerText=all.length+' Items'; b.innerHTML='';
-  all.forEach(function(f){
-    if(f.name.toLowerCase().indexOf(q)===-1)return;
-    var d=document.createElement('div');
-    d.className='frow'+(selF&&selF.name===f.name?' sel':'');
-    d.innerHTML='<div><div style="font-size:.8rem;font-weight:700">'+f.name+'</div><div style="font-size:.66rem;color:var(--gn)">'+f.cal+' cals / 1 serv</div></div><div style="font-size:.62rem;color:var(--mt)">'+f.pro+'g P • '+f.carb+'g C • '+f.fat+'g F</div>';
-    d.onclick=function(){selF=f;$('sf-nm').innerText=f.name;sSrv(1);rFoods();};
+  var q = ($('fsrc').value || '').toLowerCase();
+  var b = $('flist');
+  b.innerHTML = '';
+  DB.foods.forEach(function(f, idx){
+    if(f.name.toLowerCase().indexOf(q) === -1) return;
+    var d = document.createElement('div');
+    d.className = 'frow' + (selF && selF.name === f.name ? ' sel' : '');
+    
+    var info = document.createElement('div');
+    info.className = 'finfo';
+    info.innerHTML = '<div style="font-size:.82rem;font-weight:700">' + f.name + '</div>' +
+                     '<div style="font-size:.68rem;color:var(--gn)">' + f.cal + ' cals / ' + (f.u || '1 serving') + '</div>' +
+                     '<div style="font-size:.62rem;color:var(--mt)">' + f.p + 'g P • ' + f.c + 'g C • ' + f.f + 'g F</div>';
+    info.onclick = function(){
+      selF = f;
+      $('sf-nm').innerText = f.name + ' (' + (f.u || '1 serving') + ')';
+      sSrv(1);
+      rFoods();
+    };
+
+    var acts = document.createElement('div');
+    acts.className = 'factions';
+    acts.innerHTML = '<button class="bsm bedt" title="Edit Food">✏️</button>' +
+                     '<button class="bsm bdel" title="Delete Food">🗑️</button>';
+    
+    acts.children[0].onclick = function(e){
+      e.stopPropagation();
+      openEditMasterFood(idx);
+    };
+    acts.children[1].onclick = function(e){
+      e.stopPropagation();
+      deleteMasterFood(idx);
+    };
+
+    d.appendChild(info);
+    d.appendChild(acts);
     b.appendChild(d);
   });
 }
+
 function sSrv(v){
-  $('s-srv').value=v;
-  var ps=document.querySelectorAll('.sp');
-  for(var i=0;i<ps.length;i++) ps[i].className='sp'+(+ps[i].innerText===v?' active':'');
+  $('s-srv').value = v;
+  var ps = document.querySelectorAll('.sp');
+  for(var i=0; i<ps.length; i++) ps[i].className = 'sp' + (+ps[i].innerText === v ? ' active' : '');
   cFood();
 }
+
 function cFood(){
-  if(!selF)return;
-  var m=parseFloat($('s-srv').value)||0;
-  $('s-cal').value=Math.round(selF.cal*m);
-  $('s-pro').value=(selF.pro*m).toFixed(1);
-  $('s-crb').value=(selF.carb*m).toFixed(1);
-  $('s-fat').value=(selF.fat*m).toFixed(1);
-}
-function addFLog(){
-  var srv=parseFloat($('s-srv').value)||1, cal=+$('s-cal').value||0, pro=+$('s-pro').value||0, crb=+$('s-crb').value||0, fat=+$('s-fat').value||0, eid=$('ef-id').value;
-  if(!DB.meals[curDt])DB.meals[curDt]=[];
-  if(eid){
-    DB.meals[curDt]=DB.meals[curDt].map(function(x){return x.id==eid?{id:x.id,name:selF.name,srv:srv,cal:cal,pro:pro,carb:crb,fat:fat}:x;});
-    $('ef-id').value='';$('f-btn').innerText='✓ Log Food';
-  }else{
-    DB.meals[curDt].push({id:Date.now(),name:selF.name,srv:srv,cal:cal,pro:pro,carb:crb,fat:fat});
-  }
-  save();rStrip();
-}
-function edtF(id){
-  var m=(DB.meals[curDt]||[]).filter(function(x){return x.id===id})[0];
-  if(!m)return;
-  selF={name:m.name,cal:m.cal/m.srv,pro:m.pro/m.srv,carb:m.carb/m.srv,fat:m.fat/m.srv};
-  $('sf-nm').innerText='Edit: '+m.name;$('s-srv').value=m.srv;$('s-cal').value=m.cal;$('s-pro').value=m.pro;$('s-crb').value=m.carb;$('s-fat').value=m.fat;$('ef-id').value=m.id;$('f-btn').innerText='💾 Update Food';
-}
-function delF(id){DB.meals[curDt]=(DB.meals[curDt]||[]).filter(function(x){return x.id!==id});save();rStrip();}
-function newFood(){
-  var n=$('nf-n').value.trim(), c=+$('nf-c').value||0, p=+$('nf-p').value||0, cb=+$('nf-cb').value||0, f=+$('nf-f').value||0;
-  if(!n||!c)return alert('Enter Name & Cal');
-  DB.custom.unshift({name:n,cal:c,pro:p,carb:cb,fat:f});
-  $('nf-n').value='';$('nf-c').value='';save();rFoods();
+  if(!selF) return;
+  var m = parseFloat($('s-srv').value) || 0;
+  $('s-cal').value = Math.round(selF.cal * m);
+  $('s-pro').value = (selF.p * m).toFixed(1);
+  $('s-crb').value = (selF.c * m).toFixed(1);
+  $('s-fat').value = (selF.f * m).toFixed(1);
 }
 
-// INGREDIENTS MACRO CALCULATOR ENGINE
-var RAW_RATES = {
-  atta: {c:3.4, p:0.12, cb:0.7, f:0.015, name:"Atta"},
-  rice: {c:3.5, p:0.07, cb:0.78, f:0.005, name:"Rice"},
-  dal: {c:3.4, p:0.24, cb:0.58, f:0.012, name:"Dal"},
-  soya: {c:3.45, p:0.52, cb:0.33, f:0.005, name:"Soya Chunks"},
-  paneer: {c:2.7, p:0.19, cb:0.03, f:0.21, name:"Paneer"},
-  ghee: {c:9.0, p:0, cb:0, f:1.0, name:"Ghee/Oil"},
-  potato: {c:0.77, p:0.02, cb:0.17, f:0.001, name:"Aloo"},
-  milk: {c:0.6, p:0.032, cb:0.05, f:0.03, name:"Milk"},
-  sugar: {c:3.9, p:0, cb:1.0, f:0, name:"Sugar"}
-};
-function calcRawMacro(){
-  var k=$('raw-pick').value, g=parseFloat($('raw-g').value)||0, r=RAW_RATES[k];
-  $('raw-res-c').value = Math.round(g * r.c);
-  $('raw-res-p').value = (g * r.p).toFixed(1);
-  $('raw-res-cb').value = (g * r.cb).toFixed(1);
-  $('raw-res-f').value = (g * r.f).toFixed(1);
+function addFLog(){
+  if(!selF) return alert('Pehle koi food select karo!');
+  var srv = parseFloat($('s-srv').value) || 1;
+  var cal = +$('s-cal').value || 0;
+  var pro = +$('s-pro').value || 0;
+  var crb = +$('s-crb').value || 0;
+  var fat = +$('s-fat').value || 0;
+  var eid = $('ef-id').value;
+
+  if(!DB.meals[curDt]) DB.meals[curDt] = [];
+  if(eid){
+    DB.meals[curDt] = DB.meals[curDt].map(function(x){
+      return x.id == eid ? {id:x.id, name:selF.name, srv:srv, cal:cal, pro:pro, carb:crb, fat:fat} : x;
+    });
+    $('ef-id').value = '';
+    $('f-btn').innerText = '✓ Log Food';
+  } else {
+    DB.meals[curDt].push({id:Date.now(), name:selF.name, srv:srv, cal:cal, pro:pro, carb:crb, fat:fat});
+  }
+  save(); rStrip();
 }
-function logRawToFood(){
-  var k=$('raw-pick').value, g=parseFloat($('raw-g').value)||0, r=RAW_RATES[k];
-  if(!g)return alert('Enter grams!');
-  if(!DB.meals[curDt])DB.meals[curDt]=[];
-  DB.meals[curDt].push({
-    id:Date.now(),
-    name: r.name+" ("+g+"g raw)",
-    srv: 1,
-    cal: Math.round(g * r.c),
-    pro: +(g * r.p).toFixed(1),
-    carb: +(g * r.cb).toFixed(1),
-    fat: +(g * r.f).toFixed(1)
-  });
-  save();rStrip();alert("Ingredient Added to Today's Meals!");
+
+function edtF(id){
+  var m = (DB.meals[curDt] || []).filter(function(x){return x.id === id})[0];
+  if(!m) return;
+  selF = DB.foods.filter(function(f){return f.name === m.name})[0] || {name:m.name, cal:m.cal/m.srv, u:'1 serv', p:m.pro/m.srv, c:m.carb/m.srv, f:m.fat/m.srv};
+  $('sf-nm').innerText = 'Edit: ' + m.name;
+  $('s-srv').value = m.srv;
+  $('s-cal').value = m.cal;
+  $('s-pro').value = m.pro;
+  $('s-crb').value = m.carb;
+  $('s-fat').value = m.fat;
+  $('ef-id').value = m.id;
+  $('f-btn').innerText = '💾 Update Food Log';
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+function delF(id){
+  DB.meals[curDt] = (DB.meals[curDt] || []).filter(function(x){return x.id !== id});
+  save(); rStrip();
+}
+
+function openNewFoodPrompt(){
+  $('custom-food-box').open = true;
+  $('mf-n').value = '';
+  $('mf-u').value = '1 serving';
+  $('mf-c').value = '';
+  $('mf-p').value = '';
+  $('mf-cb').value = '';
+  $('mf-f').value = '';
+  $('mf-edit-index').value = '-1';
+  $('mf-save-btn').innerText = 'Save to Food Library';
+  $('mf-n').focus();
+}
+
+function openEditMasterFood(idx){
+  var f = DB.foods[idx];
+  if(!f) return;
+  $('custom-food-box').open = true;
+  $('mf-n').value = f.name;
+  $('mf-u').value = f.u || '1 serving';
+  $('mf-c').value = f.cal;
+  $('mf-p').value = f.p;
+  $('mf-cb').value = f.c;
+  $('mf-f').value = f.f;
+  $('mf-edit-index').value = idx;
+  $('mf-save-btn').innerText = 'Update Library Food';
+  window.scrollTo({top:150, behavior:'smooth'});
+}
+
+function deleteMasterFood(idx){
+  if(!confirm('Kya aap is food ko library se permanently delete karna chahte hain?')) return;
+  DB.foods.splice(idx, 1);
+  if(DB.foods.length > 0) selF = DB.foods[0];
+  save(); rFoods();
+}
+
+function saveMasterFood(){
+  var n = $('mf-n').value.trim();
+  var u = $('mf-u').value.trim() || '1 serving';
+  var c = +$('mf-c').value || 0;
+  var p = +$('mf-p').value || 0;
+  var cb = +$('mf-cb').value || 0;
+  var f = +$('mf-f').value || 0;
+  var idx = +$('mf-edit-index').value;
+
+  if(!n || !c) return alert('Food Name aur Calories daalna zaroori hai!');
+
+  if(idx >= 0 && idx < DB.foods.length){
+    DB.foods[idx] = {name:n, cal:c, u:u, p:p, c:cb, f:f};
+    selF = DB.foods[idx];
+  } else {
+    var newObj = {name:n, cal:c, u:u, p:p, c:cb, f:f};
+    DB.foods.unshift(newObj);
+    selF = newObj;
+  }
+  $('custom-food-box').open = false;
+  save(); rFoods();
+  $('sf-nm').innerText = selF.name;
+  sSrv(1);
 }
 
 function rEx(){
-  var c=$('w-cat').value, s=$('w-ex');s.innerHTML='';
-  EDATA.forEach(function(x){if(c==='all'||x.group===c)s.innerHTML+='<option value="'+x.name+'">['+x.group+'] '+x.name+'</option>';});
+  var c = $('w-cat').value;
+  var s = $('w-ex');
+  s.innerHTML = '';
+  EDATA.forEach(function(x){
+    if(c === 'all' || x.group === c) {
+      s.innerHTML += '<option value="' + x.name + '">[' + x.group + '] ' + x.name + '</option>';
+    }
+  });
 }
+
 function addWLog(){
-  var nm=$('w-ex').value, ex=EDATA.filter(function(x){return x.name===nm})[0]||{group:'Gym',cpm:6.5};
-  var wt=+$('w-wt').value||0, rep=+$('w-rep').value||1, set=+$('w-set').value||1, min=+$('w-min').value||(set*2), eid=$('ew-id').value;
-  var vol=wt>0?Math.round(wt*rep*set):(rep*set), brn=Math.round(min*ex.cpm+vol*0.015);
-  var prv=0, cms=new Date(curDt).getTime();
+  var nm = $('w-ex').value;
+  var ex = EDATA.filter(function(x){return x.name === nm})[0] || {group:'Gym', cpm:6.5};
+  var wt = +$('w-wt').value || 0;
+  var rep = +$('w-rep').value || 1;
+  var set = +$('w-set').value || 1;
+  var min = +$('w-min').value || (set * 2);
+  var eid = $('ew-id').value;
+
+  var vol = wt > 0 ? Math.round(wt * rep * set) : (rep * set);
+  var brn = Math.round(min * ex.cpm + vol * 0.015);
+
+  var prv = 0, cms = new Date(curDt).getTime();
   Object.keys(DB.work).forEach(function(k){
-    var ms=new Date(k).getTime();
-    if(ms<cms&&ms>=cms-15*86400000)(DB.work[k]||[]).forEach(function(w){if(w.name===nm&&w.vol>prv)prv=w.vol;});
+    var ms = new Date(k).getTime();
+    if(ms < cms && ms >= cms - 15 * 86400000){
+      (DB.work[k] || []).forEach(function(w){
+        if(w.name === nm && w.vol > prv) prv = w.vol;
+      });
+    }
   });
-  var dlt=prv>0?Math.round(((vol-prv)/prv)*100):null;
-  if(!DB.work[curDt])DB.work[curDt]=[];
+  var dlt = prv > 0 ? Math.round(((vol - prv) / prv) * 100) : null;
+
+  if(!DB.work[curDt]) DB.work[curDt] = [];
   if(eid){
-    DB.work[curDt]=DB.work[curDt].map(function(x){return x.id==eid?{id:x.id,name:nm,grp:ex.group,wt:wt,rep:rep,set:set,min:min,vol:vol,brn:brn,dlt:dlt}:x;});
-    $('ew-id').value='';$('w-btn').innerText='🔥 Log Exercise';
-  }else{
-    DB.work[curDt].push({id:Date.now(),name:nm,grp:ex.group,wt:wt,rep:rep,set:set,min:min,vol:vol,brn:brn,dlt:dlt});
+    DB.work[curDt] = DB.work[curDt].map(function(x){
+      return x.id == eid ? {id:x.id, name:nm, grp:ex.group, wt:wt, rep:rep, set:set, min:min, vol:vol, brn:brn, dlt:dlt} : x;
+    });
+    $('ew-id').value = '';
+    $('w-btn').innerText = '🔥 Log Exercise';
+  } else {
+    DB.work[curDt].push({id:Date.now(), name:nm, grp:ex.group, wt:wt, rep:rep, set:set, min:min, vol:vol, brn:brn, dlt:dlt});
   }
-  save();rStrip();
+  save(); rStrip();
 }
+
 function edtW(id){
-  var w=(DB.work[curDt]||[]).filter(function(x){return x.id===id})[0];
-  if(!w)return;
-  $('w-cat').value='all';rEx();$('w-ex').value=w.name;$('w-wt').value=w.wt;$('w-rep').value=w.rep;$('w-set').value=w.set;$('w-min').value=w.min;$('ew-id').value=w.id;$('w-btn').innerText='💾 Update Exercise';
+  var w = (DB.work[curDt] || []).filter(function(x){return x.id === id})[0];
+  if(!w) return;
+  $('w-cat').value = 'all'; rEx();
+  $('w-ex').value = w.name;
+  $('w-wt').value = w.wt;
+  $('w-rep').value = w.rep;
+  $('w-set').value = w.set;
+  $('w-min').value = w.min;
+  $('ew-id').value = w.id;
+  $('w-btn').innerText = '💾 Update Exercise Log';
+  window.scrollTo({top:0, behavior:'smooth'});
 }
-function delW(id){DB.work[curDt]=(DB.work[curDt]||[]).filter(function(x){return x.id!==id});save();rStrip();}
+
+function delW(id){
+  DB.work[curDt] = (DB.work[curDt] || []).filter(function(x){return x.id !== id});
+  save(); rStrip();
+}
+
 function saveProf(){
-  var wt=+$('i-wt').value, bf=+$('i-bf').value, wst=+$('i-wst').value, arm=+$('i-arm').value, gwt=+$('i-gwt').value, cg=+$('i-cal').value;
-  if(gwt)DB.cfg.glWt=gwt; if(cg)DB.cfg.cal=cg;
-  var p=DB.stat[curDt]||{};
-  DB.stat[curDt]={wt:wt||p.wt||null,bf:bf||p.bf||null,wst:wst||p.wst||null,arm:arm||p.arm||null};
-  save();rStrip();alert('Saved!');
+  var wt = +$('i-wt').value;
+  var bf = +$('i-bf').value;
+  var wst = +$('i-wst').value;
+  var arm = +$('i-arm').value;
+  var gwt = +$('i-gwt').value;
+  var cg = +$('i-cal').value;
+  if(gwt) DB.cfg.glWt = gwt;
+  if(cg) DB.cfg.cal = cg;
+  var p = DB.stat[curDt] || {};
+  DB.stat[curDt] = {wt:wt || p.wt || null, bf:bf || p.bf || null, wst:wst || p.wst || null, arm:arm || p.arm || null};
+  save(); rStrip(); alert('Profile Saved for ' + curDt + '!');
 }
-function upUI(){
-  var sk=Object.keys(DB.stat).sort().reverse(), ls=sk.length?DB.stat[sk[0]]:{}, s=DB.stat[curDt]||ls, cwt=s.wt||DB.cfg.stWt;
-  $('p-wt').innerText=cwt+' kg'; $('p-swt').innerText='Start:'+DB.cfg.stWt+'kg'; $('p-gwt').innerText=DB.cfg.glWt+' kg';
-  $('p-bf').innerText=(s.bf||'--')+' %'; $('p-wst').innerText=(s.wst||'--')+' in'; $('p-arm').innerText='Arm:'+(s.arm||'--')+'in';
-  var gp=Math.min(100,Math.round((Math.abs(cwt-DB.cfg.stWt)/(Math.abs(DB.cfg.glWt-DB.cfg.stWt)||1))*100));
-  $('g-bdg').innerText=gp+'% Goal'; $('p-imp').innerText='Imp:'+gp+'%'; $('g-txt').innerText=gp+'%'; $('g-bar').style.width=gp+'%';
+style="color:var(--gn)">' + m.cal + ' kcal</strong> • ' + m.pro + 'g P • ' + m.carb + 'g C • ' + m.fat + 'g F</p></
+  function upUI(){
+  var sk = Object.keys(DB.stat).sort().reverse();
+  var ls = sk.length ? DB.stat[sk[0]] : {};
+  var s = DB.stat[curDt] || ls;
+  var cwt = s.wt || DB.cfg.stWt;
 
-  var act={};
-  Object.keys(DB.meals).forEach(function(k){if(DB.meals[k]&&DB.meals[k].length)act[k]=1;});
-  Object.keys(DB.work).forEach(function(k){if(DB.work[k]&&DB.work[k].length)act[k]=1;});
-  var stCnt=Object.keys(act).length;
-  $('strk').innerText='🔥 '+stCnt+' Day Streak';
+  $('p-wt').innerText = cwt + ' kg';
+  $('p-swt').innerText = 'Start:' + DB.cfg.stWt + 'kg';
+  $('p-gwt').innerText = DB.cfg.glWt + ' kg';
+  $('p-bf').innerText = (s.bf || '--') + ' %';
+  $('p-wst').innerText = (s.wst || '--') + ' in';
+  $('p-arm').innerText = 'Arm:' + (s.arm || '--') + 'in';
 
-  var ms=DB.meals[curDt]||[], eat=0, pro=0, crb=0, fat=0;
-  ms.forEach(function(m){eat+=m.cal;pro+=m.pro;crb+=m.carb;fat+=m.fat;});
-  var ws=DB.work[curDt]||[], brn=0, vol=0;
-  ws.forEach(function(w){brn+=w.brn;vol+=w.vol;});
+  var gp = Math.min(100, Math.round((Math.abs(cwt - DB.cfg.stWt) / (Math.abs(DB.cfg.glWt - DB.cfg.stWt) || 1)) * 100));
+  $('g-bdg').innerText = gp + '% Goal';
+  $('p-imp').innerText = 'Imp:' + gp + '%';
+  $('g-txt').innerText = gp + '%';
+  $('g-bar').style.width = gp + '%';
 
-  $('c-bdg').innerText=eat+' / '+DB.cfg.cal+' kcal'; $('d-lft').innerText=DB.cfg.cal-eat; $('d-eat').innerText='Eat:'+eat;
-  $('d-brn').innerText=brn+' kcal'; $('d-vol').innerText=vol+'kg Vol'; $('d-pro').innerText=pro.toFixed(1)+'g'; $('d-cf').innerText=crb.toFixed(0)+'C/'+fat.toFixed(0)+'F';
-  var cp=Math.min(100,Math.round((eat/DB.cfg.cal)*100));
-  $('c-pct').innerText=cp+'%'; $('c-bar').style.width=cp+'%';
+  var act = {};
+  Object.keys(DB.meals).forEach(function(k){ if(DB.meals[k] && DB.meals[k].length) act[k] = 1; });
+  Object.keys(DB.work).forEach(function(k){ if(DB.work[k] && DB.work[k].length) act[k] = 1; });
+  var stCnt = Object.keys(act).length;
+  $('strk').innerText = '🔥 ' + stCnt + ' Day Streak';
 
-  var fb=$('flog'); fb.innerHTML=ms.length?'':'<p style="font-size:.7rem;color:var(--mt)">No food logged today.</p>';
+  var ms = DB.meals[curDt] || [], eat = 0, pro = 0, crb = 0, fat = 0;
+  ms.forEach(function(m){ eat += m.cal; pro += m.pro; crb += m.carb; fat += m.fat; });
+  var ws = DB.work[curDt] || [], brn = 0, vol = 0;
+  ws.forEach(function(w){ brn += w.brn; vol += w.vol; });
+
+  $('c-bdg').innerText = eat + ' / ' + DB.cfg.cal + ' kcal';
+  $('d-lft').innerText = (DB.cfg.cal - eat);
+  $('d-eat').innerText = 'Eat:' + eat;
+  $('d-brn').innerText = brn + ' kcal';
+  $('d-vol').innerText = vol + 'kg Vol';
+  $('d-pro').innerText = pro.toFixed(1) + 'g';
+  $('d-cf').innerText = crb.toFixed(0) + 'C/' + fat.toFixed(0) + 'F';
+  var cp = Math.min(100, Math.round((eat / DB.cfg.cal) * 100));
+  $('c-pct').innerText = cp + '%';
+  $('c-bar').style.width = cp + '%';
+
+  var fb = $('flog');
+  fb.innerHTML = ms.length ? '' : '<p style="font-size:.7rem;color:var(--mt)">No food logged today.</p>';
   ms.forEach(function(m){
-    fb.innerHTML+='<div class="lrow"><div><h4>'+m.name+' ('+m.srv+'x)</h4><p><strong style="color:var(--gn)">'+m.cal+' kcal</strong> • '+m.pro+'g P • '+m.carb+'g C • '+m.fat+'g F</p></div><div><button class="bsm bedt" onclick="edtF('+m.id+')">Edit</button> <button class="bsm bdel" onclick="delF('+m.id+')">Del</button></div></div>';
+    fb.innerHTML += '<div class="lrow"><div><h4>' + m.name + ' (' + m.srv + 'x)</h4>' +
+                    '<p><strong style="color:var(--gn)">' + m.cal + ' kcal</strong> • ' + m.pro + 'g P • ' + m.carb + 'g C • ' + m.fat + 'g F</p></div>' +
+                    '<div><button class="bsm bedt" onclick="edtF(' + m.id + ')">Edit</button> <button class="bsm bdel" onclick="delF(' + m.id + ')">Del</button></div></div>';
   });
 
-  var wb=$('wlog'); wb.innerHTML=ws.length?'':'<p style="font-size:.7rem;color:var(--mt)">No workout logged today.</p>';
+  var wb = $('wlog');
+  wb.innerHTML = ws.length ? '' : '<p style="font-size:.7rem;color:var(--mt)">No workout logged today.</p>';
   ws.forEach(function(w){
-    var dt=w.dlt!==null?' <span style="color:'+(w.dlt>=0?'var(--gn)':'var(--rd)')+';font-weight:800">'+(w.dlt>=0?'▲+':'▼')+w.dlt+'% (15d)</span>':'';
-    wb.innerHTML+='<div class="lrow"><div><h4>['+w.grp+'] '+w.name+'</h4><p>'+w.set+'x'+w.rep+' @ '+w.wt+'kg ('+w.min+'m) • <strong style="color:var(--am)">🔥 '+w.brn+' kcal</strong>'+dt+'</p></div><div><button class="bsm bedt" onclick="edtW('+w.id+')">Edit</button> <button class="bsm bdel" onclick="delW('+w.id+')">Del</button></div></div>';
+    var dt = w.dlt !== null ? ' <span style="color:' + (w.dlt >= 0 ? 'var(--gn)' : 'var(--rd)') + ';font-weight:800">' + (w.dlt >= 0 ? '▲+' : '▼') + w.dlt + '% (15d)</span>' : '';
+    wb.innerHTML += '<div class="lrow"><div><h4>[' + w.grp + '] ' + w.name + '</h4>' +
+                    '<p>' + w.set + 'x' + w.rep + ' @ ' + w.wt + 'kg (' + w.min + 'm) • <strong style="color:var(--am)">🔥 ' + w.brn + ' kcal</strong>' + dt + '</p></div>' +
+                    '<div><button class="bsm bedt" onclick="edtW(' + w.id + ')">Edit</button> <button class="bsm bdel" onclick="delW(' + w.id + ')">Del</button></div></div>';
   });
 
-  var wc=0, wd=0, wb7=0, wv7=0, nms=new Date(curDt).getTime();
-  for(var i=0;i<7;i++){
-    var k=new Date(nms-i*86400000).toISOString().split('T')[0];
-    if(DB.meals[k]&&DB.meals[k].length){DB.meals[k].forEach(function(x){wc+=x.cal});wd++;}
-    if(DB.work[k]&&DB.work[k].length){DB.work[k].forEach(function(x){wb7+=x.brn;wv7+=x.vol});}
+  var wc = 0, wd = 0, wb7 = 0, wv7 = 0, nms = new Date(curDt).getTime();
+  for(var i=0; i<7; i++){
+    var k = new Date(nms - i * 86400000).toISOString().split('T')[0];
+    if(DB.meals[k] && DB.meals[k].length){ DB.meals[k].forEach(function(x){wc += x.cal}); wd++; }
+    if(DB.work[k] && DB.work[k].length){ DB.work[k].forEach(function(x){wb7 += x.brn; wv7 += x.vol}); }
   }
-  $('in-avg').innerText=(wd?Math.round(wc/wd):0)+' kcal'; $('in-brn').innerText=wb7+' kcal'; $('in-vol').innerText=wv7+'kg'; $('in-act').innerText=stCnt+' Days';
+  $('in-avg').innerText = (wd ? Math.round(wc / wd) : 0) + ' kcal';
+  $('in-brn').innerText = wb7 + ' kcal';
+  $('in-vol').innerText = wv7 + 'kg';
+  $('in-act').innerText = stCnt + ' Days';
 }
-function cMo(d){mo+=d;if(mo<0){mo=11;yr--}if(mo>11){mo=0;yr++}rCal();}
+
+function cMo(d){ mo += d; if(mo < 0){ mo = 11; yr--; } if(mo > 11){ mo = 0; yr++; } rCal(); }
+
 function rCal(){
-  var mN=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
-  $('m-tit').innerText=mN[mo]+' '+yr;
-  var f=new Date(yr,mo,1).getDay(), ds=new Date(yr,mo+1,0).getDate(), g=$('mgrid'); g.innerHTML='';
-  for(var i=0;i<f;i++)g.innerHTML+='<div class="mc emp"></div>';
-  for(var d=1;d<=ds;d++){
-    var iso=yr+'-'+String(mo+1).padStart(2,'0')+'-'+String(d).padStart(2,'0');
-    var has=(DB.meals[iso]&&DB.meals[iso].length)||(DB.work[iso]&&DB.work[iso].length)||DB.stat[iso];
-    var el=document.createElement('div');
-    el.className='mc'+(has?' has':'')+(iso===inDt?' sel':'');
-    el.innerText=d;
-    (function(dt){el.onclick=function(){sRep(dt);rCal();};})(iso);
+  var mN = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+  $('m-tit').innerText = mN[mo] + ' ' + yr;
+  var f = new Date(yr, mo, 1).getDay();
+  var ds = new Date(yr, mo + 1, 0).getDate();
+  var g = $('mgrid'); g.innerHTML = '';
+  for(var i=0; i<f; i++) g.innerHTML += '<div class="mc emp"></div>';
+  for(var d=1; d<=ds; d++){
+    var iso = yr + '-' + String(mo + 1).padStart(2, '0') + '-' + String(d).padStart(2, '0');
+    var has = (DB.meals[iso] && DB.meals[iso].length) || (DB.work[iso] && DB.work[iso].length) || DB.stat[iso];
+    var el = document.createElement('div');
+    el.className = 'mc' + (has ? ' has' : '') + (iso === inDt ? ' sel' : '');
+    el.innerText = d;
+    (function(dt){ el.onclick = function(){ sRep(dt); rCal(); }; })(iso);
     g.appendChild(el);
   }
 }
-function sRep(iso){
-  inDt=iso; $('r-tit').innerText='📅 Report: '+iso;
-  var ms=DB.meals[iso]||[], ws=DB.work[iso]||[], st=DB.stat[iso]||{}, e=0, p=0, b=0;
-  ms.forEach(function(x){e+=x.cal;p+=x.pro}); ws.forEach(function(x){b+=x.brn});
-  $('r-eat').innerText=e+' kcal'; $('r-brn').innerText=b+' kcal'; $('r-pro').innerText=p.toFixed(1)+'g'; $('r-wt').innerText=st.wt?st.wt+'kg':'--';
-  var rf=$('r-fl'); rf.innerHTML=ms.length?'':'<p style="font-size:.68rem;color:var(--mt)">No food logged.</p>';
-  ms.forEach(function(m){rf.innerHTML+='<div class="lrow"><h4>'+m.name+' ('+m.srv+'x)</h4><p>'+m.cal+' kcal • '+m.pro+'g P</p></div>';});
-  var rw=$('r-wl'); rw.innerHTML=ws.length?'':'<p style="font-size:.68rem;color:var(--mt)">No workout logged.</p>';
-  ws.forEach(function(w){rw.innerHTML+='<div class="lrow"><h4>['+w.grp+'] '+w.name+'</h4><p>'+w.set+'x'+w.rep+' @ '+w.wt+'kg • 🔥 '+w.brn+' kcal</p></div>';});
-}
-function editDay(){curDt=inDt;rStrip();upUI();tab('food');}
 
-rStrip();rFoods();sSrv(1);rEx();calcRawMacro();upUI();
+function sRep(iso){
+  inDt = iso;
+  $('r-tit').innerText = '📅 Report: ' + iso;
+  var ms = DB.meals[iso] || [], ws = DB.work[iso] || [], st = DB.stat[iso] || {}, e = 0, p = 0, b = 0;
+  ms.forEach(function(x){ e += x.cal; p += x.pro });
+  ws.forEach(function(x){ b += x.brn });
+  $('r-eat').innerText = e + ' kcal';
+  $('r-brn').innerText = b + ' kcal';
+  $('r-pro').innerText = p.toFixed(1) + 'g';
+  $('r-wt').innerText = st.wt ? st.wt + 'kg' : '--';
+
+  var rf = $('r-fl');
+  rf.innerHTML = ms.length ? '' : '<p style="font-size:.68rem;color:var(--mt)">No food logged.</p>';
+  ms.forEach(function(m){
+    rf.innerHTML += '<div class="lrow"><h4>' + m.name + ' (' + m.srv + 'x)</h4><p>' + m.cal + ' kcal • ' + m.pro + 'g P</p></div>';
+  });
+
+  var rw = $('r-wl');
+  rw.innerHTML = ws.length ? '' : '<p style="font-size:.68rem;color:var(--mt)">No workout logged.</p>';
+  ws.forEach(function(w){
+    rw.innerHTML += '<div class="lrow"><h4>[' + w.grp + '] ' + w.name + '</h4><p>' + w.set + 'x' + w.rep + ' @ ' + w.wt + 'kg • 🔥 ' + w.brn + ' kcal</p></div>';
+  });
+}
+
+function editDay(){
+  curDt = inDt;
+  rStrip();
+  upUI();
+  tab('food');
+}
+
+rStrip();
+rFoods();
+if(DB.foods.length > 0){
+  selF = DB.foods[0];
+  $('sf-nm').innerText = selF.name + ' (' + (selF.u || '1 serving') + ')';
+  sSrv(1);
+}
+rEx();
+upUI();
 </script>
+</body>
 </html>
