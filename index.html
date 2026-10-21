@@ -1,24 +1,24 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 <title>ASH Fitness OS</title>
 <style>
 :root{--bg:#070a12;--cd:#111726;--alt:#172035;--bd:#24324f;--ac:#38bdf8;--gn:#10b981;--am:#f59e0b;--rd:#f43f5e;--tx:#f8fafc;--mt:#94a3b8}
-*{box-sizing:border-box;margin:0;padding:0;font-family:system-ui,sans-serif;-webkit-tap-highlight-color:transparent}
-body{background:var(--bg);color:var(--tx);padding-bottom:80px;min-height:100vh}
-header{background:#111726;border-bottom:1px solid var(--bd);padding:12px 14px;position:sticky;top:0;z-index:40;display:flex;justify-content:space-between;align-items:center}
-.br{font-size:1rem;font-weight:900;color:var(--ac)}
+*{box-sizing:border-box;margin:0;padding:0;font-family:system-ui,-apple-system,sans-serif;-webkit-tap-highlight-color:transparent}
+body{background:var(--bg);color:var(--tx);padding-bottom:85px;min-height:100vh}
+header{background:#111726;border-bottom:1px solid var(--bd);padding:12px 15px;position:sticky;top:0;z-index:40;display:flex;justify-content:space-between;align-items:center}
+.br{font-size:1.05rem;font-weight:900;color:var(--ac);letter-spacing:0.5px}
 .stk{background:#f59e0b22;color:var(--am);border:1px solid #f59e0b55;padding:4px 10px;border-radius:20px;font-size:.74rem;font-weight:800}
 .scr{display:none;padding:12px;max-width:500px;margin:0 auto}
 .scr.active{display:block}
-.card{background:var(--cd);border:1px solid var(--bd);border-radius:14px;padding:13px;margin-bottom:11px}
+.card{background:var(--cd);border:1px solid var(--bd);border-radius:14px;padding:13px;margin-bottom:12px;box-shadow:0 6px 20px #0006}
 .chd{display:flex;justify-content:space-between;align-items:center;margin-bottom:9px}
-.ctit{font-size:.88rem;font-weight:800}
+.ctit{font-size:.88rem;font-weight:800;color:var(--tx)}
 .bdg{font-size:.68rem;padding:3px 8px;border-radius:7px;font-weight:700;background:#38bdf822;color:var(--ac)}
 .cstrip{display:flex;gap:6px;overflow-x:auto;padding-bottom:4px}
-.cp{flex:0 0 45px;background:var(--alt);border:1px solid var(--bd);border-radius:10px;padding:6px 2px;text-align:center;cursor:pointer}
+.cp{flex:0 0 46px;background:var(--alt);border:1px solid var(--bd);border-radius:10px;padding:6px 2px;text-align:center;cursor:pointer}
 .cp.active{background:var(--ac);color:#050811;border-color:var(--ac);font-weight:800}
 .cp .dw{font-size:.58rem;text-transform:uppercase;font-weight:700}
 .cp .dn{font-size:.92rem;font-weight:900;margin-top:2px}
@@ -36,6 +36,7 @@ header{background:#111726;border-bottom:1px solid var(--bd);padding:12px 14px;po
 .pfl{height:100%;background:linear-gradient(90deg,var(--ac),var(--gn));width:0%}
 label{font-size:.66rem;color:var(--mt);font-weight:700;text-transform:uppercase;display:block;margin-bottom:3px}
 input,select{width:100%;padding:9px;margin-bottom:8px;background:#070a12;border:1px solid var(--bd);border-radius:8px;color:var(--tx);font-size:.84rem;font-weight:600;outline:none}
+input:focus,select:focus{border-color:var(--ac)}
 .btn{width:100%;padding:11px;border-radius:9px;font-weight:800;font-size:.86rem;border:none;cursor:pointer;background:var(--ac);color:#050811}
 .bsec{background:var(--alt);color:var(--tx);border:1px solid var(--bd);margin-top:6px}
 .bsm{padding:5px 8px;font-size:.68rem;border-radius:6px;font-weight:700;cursor:pointer;border:1px solid var(--bd);background:var(--alt);color:var(--tx)}
@@ -44,7 +45,7 @@ input,select{width:100%;padding:9px;margin-bottom:8px;background:#070a12;border:
 .sps{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:8px}
 .sp{flex:1;min-width:36px;text-align:center;padding:6px 2px;background:var(--alt);border:1px solid var(--bd);border-radius:6px;font-size:.7rem;font-weight:800;color:var(--mt);cursor:pointer}
 .sp.active{background:var(--ac);color:#050811}
-.flist{max-height:200px;overflow-y:auto;border:1px solid var(--bd);border-radius:9px;background:#070a12;margin-bottom:9px}
+.flist{max-height:210px;overflow-y:auto;border:1px solid var(--bd);border-radius:9px;background:#070a12;margin-bottom:9px}
 .frow{display:flex;justify-content:space-between;align-items:center;padding:8px 10px;border-bottom:1px solid #151e30;cursor:pointer}
 .frow.sel{background:#38bdf828;border-left:3px solid var(--ac)}
 .lrow{background:var(--alt);border:1px solid var(--bd);border-radius:9px;padding:9px;margin-bottom:6px;display:flex;justify-content:space-between;align-items:center}
@@ -65,11 +66,11 @@ nav.bbar{position:fixed;bottom:0;left:0;width:100%;background:#111726;border-top
 <body>
 
 <header>
-  <div><div class="br">ASH FITNESS OS</div><div id="top-dt" style="font-size:.66rem;color:var(--mt)"></div></div>
+  <div><div class="br">MISSION ASH • OS</div><div id="top-dt" style="font-size:.66rem;color:var(--mt)"></div></div>
   <div class="stk" id="strk">🔥 0 Day Streak</div>
 </header>
 
-<!-- 1. PROFILE -->
+<!-- 1. PROFILE SECTION -->
 <div id="s-prof" class="scr active">
   <div class="card" style="padding:9px"><div class="cstrip" id="cstrip"></div></div>
   <div class="card">
@@ -84,10 +85,10 @@ nav.bbar{position:fixed;bottom:0;left:0;width:100%;background:#111726;border-top
   </div>
 
   <div class="card">
-    <div class="chd"><div class="ctit">⚡ Today's Calories & Macros</div><span class="bdg" id="c-bdg">0 / 1700</span></div>
+    <div class="chd"><div class="ctit">⚡ Today's Energy & Macros</div><span class="bdg" id="c-bdg">0 / 1700 kcal</span></div>
     <div class="g4">
       <div class="sb"><span>Cal Left</span><strong id="d-lft">1700</strong><small id="d-eat">Eat:0</small></div>
-      <div class="sb"><span>Burned</span><strong id="d-brn" style="color:var(--am)">0</strong><small id="d-vol">0kg Vol</small></div>
+      <div class="sb"><span>Burned</span><strong id="d-brn" style="color:var(--am)">0 kcal</strong><small id="d-vol">0kg Vol</small></div>
       <div class="sb"><span>Protein</span><strong id="d-pro" style="color:var(--gn)">0g</strong><small>of 120g</small></div>
       <div class="sb"><span>Carb/Fat</span><strong id="d-cf">0/0g</strong><small>Macros</small></div>
     </div>
@@ -97,28 +98,29 @@ nav.bbar{position:fixed;bottom:0;left:0;width:100%;background:#111726;border-top
   <div class="card">
     <div class="chd"><div class="ctit">📏 Update Stats & Goals</div></div>
     <div class="g3">
-      <div><label>Weight(kg)</label><input type="number" step="0.1" id="i-wt" placeholder="57.5"></div>
+      <div><label>Weight (kg)</label><input type="number" step="0.1" id="i-wt" placeholder="57.5"></div>
       <div><label>Fat %</label><input type="number" step="0.1" id="i-bf" placeholder="14"></div>
-      <div><label>Waist(in)</label><input type="number" step="0.2" id="i-wst" placeholder="29"></div>
+      <div><label>Waist (in)</label><input type="number" step="0.2" id="i-wst" placeholder="29"></div>
     </div>
     <div class="g3">
-      <div><label>Arms(in)</label><input type="number" step="0.2" id="i-arm" placeholder="14"></div>
-      <div><label>Goal Wt</label><input type="number" step="0.5" id="i-gwt" placeholder="65"></div>
+      <div><label>Arms (in)</label><input type="number" step="0.2" id="i-arm" placeholder="14"></div>
+      <div><label>Goal Wt (kg)</label><input type="number" step="0.5" id="i-gwt" placeholder="65"></div>
       <div><label>Cal Goal</label><input type="number" id="i-cal" placeholder="1700"></div>
     </div>
     <button class="btn" onclick="saveProf()">💾 Save Measurements</button>
   </div>
 </div>
 
-<!-- 2. FOOD -->
+<!-- 2. FOOD SECTION -->
 <div id="s-food" class="scr">
   <div class="card">
     <div class="chd"><div class="ctit">🥘 My Foods & Ingredients</div><span class="bdg" id="fcnt">65+</span></div>
     <input type="text" id="fsrc" placeholder="🔍 Search (Roti, Dal, Momos, Chaap, Paneer)..." oninput="rFoods()">
     <div class="flist" id="flist"></div>
+
     <div style="background:var(--alt);border:1px solid var(--ac);border-radius:10px;padding:10px;margin-bottom:9px">
       <div class="chd"><strong id="sf-nm" style="color:var(--ac);font-size:.84rem">Select Food</strong></div>
-      <label>Serving Quantity (Tap or Type Decimal like 0.45, 2.5)</label>
+      <label>Serving Quantity (Tap or Type Decimal like 0.45, 0.5, 2.5)</label>
       <div class="sps">
         <div class="sp" onclick="sSrv(0.25)">0.25</div><div class="sp" onclick="sSrv(0.5)">0.5</div><div class="sp" onclick="sSrv(0.75)">0.75</div><div class="sp active" onclick="sSrv(1)">1</div><div class="sp" onclick="sSrv(1.5)">1.5</div><div class="sp" onclick="sSrv(2)">2</div><div class="sp" onclick="sSrv(2.5)">2.5</div><div class="sp" onclick="sSrv(3)">3</div>
       </div>
@@ -134,6 +136,36 @@ nav.bbar{position:fixed;bottom:0;left:0;width:100%;background:#111726;border-top
       <input type="hidden" id="ef-id">
       <button class="btn" id="f-btn" onclick="addFLog()">✓ Log Food</button>
     </div>
+
+    <!-- INGREDIENT & RECIPE EXACT MACRO BUILDER -->
+    <details style="margin-bottom:8px">
+      <summary style="font-size:.74rem;font-weight:700;color:var(--gn);cursor:pointer">🧪 Exact Raw Ingredients Calculator</summary>
+      <div style="margin-top:7px;background:#070a12;border:1px solid var(--bd);border-radius:8px;padding:9px">
+        <label>Pick Raw Ingredient</label>
+        <select id="raw-pick" onchange="calcRawMacro()">
+          <option value="atta">Atta (Wheat Flour) • 340 cal/100g (12g P, 70g C)</option>
+          <option value="rice">Raw Rice • 350 cal/100g (7g P, 78g C)</option>
+          <option value="dal">Raw Moong/Arhar Dal • 340 cal/100g (24g P, 58g C)</option>
+          <option value="soya">Raw Soya Chunks • 345 cal/100g (52g P, 33g C)</option>
+          <option value="paneer">Raw Paneer • 270 cal/100g (19g P, 3g C, 21g F)</option>
+          <option value="ghee">Ghee / Mustard Oil • 900 cal/100g (100g Fat)</option>
+          <option value="potato">Raw Aloo (Potato) • 77 cal/100g (2g P, 17g C)</option>
+          <option value="milk">Toned Milk • 60 cal/100ml (3.2g P, 5g C, 3g F)</option>
+          <option value="sugar">White Sugar • 390 cal/100g (100g Carbs)</option>
+        </select>
+        <div class="g2">
+          <div><label>Amount in Grams (or ml)</label><input type="number" id="raw-g" value="50" oninput="calcRawMacro()"></div>
+          <div><label>Yielded Calories</label><input type="number" id="raw-res-c" readonly style="color:var(--gn)"></div>
+        </div>
+        <div class="g3">
+          <div><label>Pro(g)</label><input type="number" id="raw-res-p" readonly></div>
+          <div><label>Carb(g)</label><input type="number" id="raw-res-cb" readonly></div>
+          <div><label>Fat(g)</label><input type="number" id="raw-res-f" readonly></div>
+        </div>
+        <button class="btn bsec" onclick="logRawToFood()">+ Log Calculated Ingredient</button>
+      </div>
+    </details>
+
     <details>
       <summary style="font-size:.74rem;font-weight:700;color:var(--ac);cursor:pointer">+ Add Custom Ingredient / Food</summary>
       <div style="margin-top:7px">
@@ -146,26 +178,26 @@ nav.bbar{position:fixed;bottom:0;left:0;width:100%;background:#111726;border-top
   <div class="card"><div class="chd"><div class="ctit">📋 Today's Food Log</div></div><div id="flog"></div></div>
 </div>
 
-<!-- 3. WORKOUT -->
+<!-- 3. WORKOUT SECTION -->
 <div id="s-work" class="scr">
   <div class="card">
-    <div class="chd"><div class="ctit">🏋️ Exercise & Heart Logger (75+)</div></div>
+    <div class="chd"><div class="ctit">🏋️ Exercise & Heart Logger (230+)</div></div>
     <label>1. Muscle Group / Heart</label>
     <select id="w-cat" onchange="rEx()">
-      <option value="all">🔥 All Exercises (75+)</option>
-      <option value="Heart">❤️ Heart (Running, Walking, Cardio)</option>
-      <option value="Bodyweight">🏃 Bodyweight / Home</option>
+      <option value="all">🔥 All Exercises (230+)</option>
+      <option value="Heart">❤️ Heart (Running, Walking, Cardio, HIIT)</option>
+      <option value="Bodyweight">🏃 Bodyweight / Calisthenics / Home</option>
       <option value="Chest">Chest</option>
-      <option value="Back">Back & Lats</option>
-      <option value="Shoulders">Shoulders</option>
-      <option value="Arms">Arms (Biceps & Triceps)</option>
-      <option value="Legs">Legs & Calves</option>
-      <option value="Core">Core & Abs</option>
+      <option value="Back">Back, Lats & Traps</option>
+      <option value="Shoulders">Shoulders & Delts</option>
+      <option value="Arms">Arms (Biceps, Triceps, Forearms)</option>
+      <option value="Legs">Legs, Quads, Hams, Calves</option>
+      <option value="Core">Core, Abs & Obliques</option>
     </select>
-    <label>2. Select Exercise</label>
+    <label>2. Slide & Select Exercise</label>
     <select id="w-ex"></select>
     <div class="g2">
-      <div><label>Weight (kg) [0=BW]</label><input type="number" step="0.5" id="w-wt" placeholder="40"></div>
+      <div><label>Weight (kg) [0 for BW]</label><input type="number" step="0.5" id="w-wt" placeholder="40"></div>
       <div><label>Reps / Steps</label><input type="number" id="w-rep" placeholder="12"></div>
     </div>
     <div class="g2">
@@ -178,26 +210,27 @@ nav.bbar{position:fixed;bottom:0;left:0;width:100%;background:#111726;border-top
   <div class="card"><div class="chd"><div class="ctit">⚡ Today's Workout & 15d Strength</div></div><div id="wlog"></div></div>
 </div>
 
-<!-- 4. INSIGHTS -->
+<!-- 4. INSIGHTS SECTION -->
 <div id="s-ins" class="scr">
   <div class="card">
     <div class="chd"><div class="ctit">📊 7-Day & Monthly Summary</div></div>
     <div class="g3">
-      <div class="sb"><span>7d Avg Cal</span><strong id="in-avg">0</strong><small>Daily</small></div>
-      <div class="sb"><span>7d Burned</span><strong id="in-brn" style="color:var(--am)">0</strong><small>kcal</small></div>
+      <div class="sb"><span>7d Avg Cal</span><strong id="in-avg">0</strong><small>Daily Eaten</small></div>
+      <div class="sb"><span>7d Burned</span><strong id="in-brn" style="color:var(--am)">0</strong><small>Workouts</small></div>
       <div class="sb"><span>7d Volume</span><strong id="in-vol">0kg</strong><small id="in-act">0 Days</small></div>
     </div>
   </div>
   <div class="card">
     <div class="chd">
       <button class="bsm" onclick="cMo(-1)">◀ Prev</button>
-      <strong id="m-tit" style="color:var(--acc);font-size:.9rem">Month</strong>
+      <strong id="m-tit" style="color:var(--ac);font-size:.9rem">Month</strong>
       <button class="bsm" onclick="cMo(1)">Next ▶</button>
     </div>
+    <p style="font-size:.7rem;color:var(--mt);text-align:center;margin-bottom:8px">👇 Kisi bhi date par click karke us din ka full record dekhein</p>
     <div class="mghd"><div>Su</div><div>Mo</div><div>Tu</div><div>We</div><div>Th</div><div>Fr</div><div>Sa</div></div>
     <div class="mgrid" id="mgrid"></div>
   </div>
-  <div class="card" style="border-color:var(--acc)">
+  <div class="card" style="border-color:var(--ac)">
     <div class="chd"><div class="ctit" id="r-tit">📅 Date Report</div><button class="bsm bedt" onclick="editDay()">✏️ Edit Day</button></div>
     <div class="g4" style="margin-bottom:8px">
       <div class="sb"><span>Eaten</span><strong id="r-eat" style="color:var(--gn)">0</strong></div>
@@ -209,7 +242,6 @@ nav.bbar{position:fixed;bottom:0;left:0;width:100%;background:#111726;border-top
     <label>🏋️ Workouts Done:</label><div id="r-wl"></div>
   </div>
 </div>
-
 <nav class="bbar">
   <button class="nbtn active" id="nb-prof" onclick="tab('prof')"><span>👤</span>Profile</button>
   <button class="nbtn" id="nb-food" onclick="tab('food')"><span>🥘</span>Food</button>
@@ -218,17 +250,20 @@ nav.bbar{position:fixed;bottom:0;left:0;width:100%;background:#111726;border-top
 </nav>
 <script>
 function $(i){return document.getElementById(i)}
-var FDATA="Roti (1 pc)|100|3.2|20|0.8,Dal (1 katori)|340|14|42|11,Raw paneer (50g)|140|9.5|1.5|10.5,Soya Chunks (50g)|172|26|16|0.5,Dahi (1 bowl)|120|6|8|6.5,Spring roll|260|5|32|12,Sweet lassi|150|5|22|4.5,Momos steamed (1 pc)|35|1.8|5.5|0.6,Momos kurkure (1 pc)|90|2.2|10|4.5,Kurkure momos Plate|250|6|28|12,Puri / Bedmi (1 pc)|100|2|13|4.5,Chowmin / Noodles|450|8|65|16,Khoya barfi (1 pc)|100|2.5|13|4.5,Soya fried rice|450|18|68|11,Chai / Coffee Hot|80|2|11|3,Cold Coffee|150|4.5|22|5,Chole / Channa|350|13|45|12,Matar chole|100|5|16|1.5,Aloo paratha (1 pc)|220|5|34|7,Paneer paratha (1 pc)|220|9|28|8,Aloo gobhi paratha|200|4.5|30|6.5,Paratha Plain|140|3.5|22|4.5,Chutney / Sauce (1 sp)|50|0.5|9|1.2,Vada|200|5|24|9,Pasta|450|11|68|14,Soya besan chila|230|14|26|7.5,Chila (Besan/sooji/ragi)|160|7|22|5,Paneer bhurji|360|20|8|26,Soya paneer Pulav|620|26|72|22,Malai bread|110|3|14|5,Bread (1 slice)|80|2.5|15|1,Biscuit (1 pc)|20|0.4|3.2|0.7,Cookie (1 pc)|45|0.7|6|2,Kachori|250|4.5|28|13,Aloo gobhi|300|5|38|14,Ram ladoo (plate)|280|9|32|13,Soya Cutlet (1 pc)|80|4.5|9|2.8,Aloo patties|240|3.5|28|13,Aloo sabzi gravy|320|4|42|15,Aloo sabzi dry|200|3.5|32|6.5,Aloo shimla|300|4.5|36|14,Aloo tiki|200|3.5|28|8.5,Arbi sabzi|200|3|30|7.5,Bhindi sabzi|100|2.5|12|4.5,Aloo baingan|300|4|38|14,Aloo gajar|300|4|38|14,Aloo patagobhi|300|4.5|36|14,Atta golgappe plate|200|4|36|5,Bhaji (pav wali)|350|6|42|17,Bhatura homemade|165|4|26|5,Bread pakoda|300|6|34|15,Bread roll|250|5|32|11,Burger|300|8|38|12,Butter milk+sugar|100|3.5|15|2.5,Butter/Makhan/Malai|70|0.5|0.5|7.5,Desi ghee (1 tsp)|45|0|0|5,Chaap|420|16|32|24,Malai chap Half|450|18|32|28,Chocolate (20g)|100|1.2|12|5.5,Dairy milk|65|1|8|3.2,Cold drink (500ml)|220|0|55|0,Frooti (150ml)|100|0|25|0,Corn bhutta|100|3.5|21|1.2,Dhokla (1 pc)|50|2|8|1.2,Dosa homemade|150|4|26|3.5,Dosa restaurant|450|9|62|18,Fruit Medium|80|1|19|0.3,Fruit Large|150|1.8|36|0.5,Fruit Mini|70|0.8|17|0.2,Gajar Barfi|140|3|18|6,Gajar halwa (200g)|310|6|42|13,Atta halwa|300|4|38|15,Ice cream scoop|180|3|22|9,Ice Cream Stick|150|2.5|18|7.5,Rajma|350|14|46|11,Kadi pakoda|400|11|42|20,Khichdi|300|9|48|7,Maggi (1 pack)|270|6|40|9.5,Kheer|300|8|42|11,Cheese Slice|60|4|0.5|4.8,Pastry|320|4|42|15,Jalebi (1 pc)|70|0.5|12|2.2,Khandvi|30|1.5|4|1,Large Snacks/Namkeen|275|5|28|16,Mayo/Cream (1 sp)|70|0.5|1|7,Whey Protein Scoop|120|24|2|1.5,Boiled Egg (1)|72|6.3|0.5|5,White Rice Bowl|195|4|43|0.5,Oats (50g)|190|6.5|34|3".split(",").map(function(s){var p=s.split("|");return{name:p[0],cal:+p[1],pro:+p[2],carb:+p[3],fat:+p[4]}});
 
-var EDATA="Heart:Outdoor Running:10.5,Heart:Brisk Walking:5.5,Heart:Normal Walking:3.8,Heart:Treadmill Incline Walk:8.5,Heart:HIIT Sprints:13.5,Heart:Jump Rope / Skipping:11.5,Heart:Cycling / Bike:8,Heart:Stair Climbing:9.5,Heart:Elliptical:7.5,Heart:Rowing Machine:9,Heart:Shadow Boxing:9,Heart:Jumping Jacks:8,Heart:High Knees:9.5,Bodyweight:Standard Push-ups:7,Bodyweight:Wide Push-ups:7,Bodyweight:Diamond Push-ups:7.5,Bodyweight:Decline Push-ups:7.5,Bodyweight:Pull-ups:8.5,Bodyweight:Chin-ups:8.5,Bodyweight:Parallel Dips:8,Bodyweight:Bench Tricep Dips:6.5,Bodyweight:Burpees:12,Bodyweight:Hindu Baithak Squats:7.5,Bodyweight:Hindu Push-ups Dand:8.5,Bodyweight:Jump Squats:10,Bodyweight:Walking Lunges:7,Bodyweight:Mountain Climbers:9,Chest:Barbell Bench Press:6.5,Chest:Incline DB Press:6.5,Chest:Incline Barbell Press:6.5,Chest:Flat DB Press:6.5,Chest:Decline Bench Press:6,Chest:Cable Crossover:5.5,Chest:Low-to-High Cable Fly:5.5,Chest:Pec Deck Fly:5.5,Chest:DB Pullover:5.5,Back:Deadlift Barbell:9,Back:Lat Pulldown Wide:6.5,Back:Close-Grip Pulldown:6.5,Back:Barbell Bent-Over Row:7.5,Back:Seated Cable Row:6.5,Back:One-Arm DB Row:6.5,Back:T-Bar Row:7.5,Back:Straight-Arm Pushdown:5.5,Back:Face Pulls:5,Back:Back Hyperextensions:5.5,Shoulders:Overhead Barbell Press:7,Shoulders:Seated DB Shoulder Press:6.5,Shoulders:DB Lateral Raises:5.5,Shoulders:Cable Lateral Raises:5.5,Shoulders:Arnold Press:6.5,Shoulders:Reverse Pec Deck:5,Shoulders:DB Front Raises:5,Shoulders:Upright Row:6,Shoulders:Shrugs:5.5,Arms:Barbell/EZ Bicep Curls:5,Arms:Incline DB Curls:5,Arms:Hammer Curls:5,Arms:Preacher Curls:5,Arms:Concentration Curls:4.5,Arms:Cable Bicep Curls:5,Arms:Tricep Rope Pushdown:5,Arms:Overhead DB Tricep Ext:5.5,Arms:Skull Crushers:5.5,Arms:Close-Grip Bench:6.5,Arms:Tricep Kickbacks:4.5,Arms:Forearm Wrist Curls:4,Legs:Barbell Back Squat:9,Legs:Leg Press Heavy:8,Legs:Romanian Deadlift RDL:8,Legs:Bulgarian Split Squats:8.5,Legs:Leg Extension:6,Legs:Hamstring Leg Curls:6,Legs:Hack Squat:8.5,Legs:Goblet Squat:7,Legs:Standing Calf Raises:5,Legs:Seated Calf Raises:4.5,Core:Hanging Leg Raises:6.5,Core:Cable Crunches:6,Core:Russian Twists:6,Core:Bicycle Crunches:6,Core:Ab Wheel Rollout:6.5,Core:Plank Hold:5,Core:Side Plank:5.5".split(",").map(function(s){var p=s.split(":");return{group:p[0],name:p[1],cpm:+p[2]}});
+// CALIBRATED FOOD LIST (ICMR & INDIAN MACROS ACCURATE)
+var FDATA="Roti (1 pc)|100|3.2|20|0.8,Dal (1 katori)|160|8.5|24|4,Raw paneer (50g)|135|9.5|1.5|10.5,Soya Chunks (50g raw)|172|26|16.5|0.5,Dahi / Curd (1 bowl)|100|5.5|6.5|6,Spring roll (1 serv)|240|5|30|11,Sweet lassi (1 glass)|150|5|22|4.5,Momos steamed (1 pc)|35|1.5|6|0.8,Momos kurkure (1 pc)|85|2|9.5|4.5,Kurkure momos Plate|250|6|28|12,Puri / Bedmi (1 pc)|110|2|13|5.5,Chowmin / Noodles (1 plate)|400|7.5|60|15,Khoya barfi (1 pc)|100|2.5|13|4.5,Soya fried rice|430|17|66|11,Chai / Coffee Hot|80|2|11|3,Cold Coffee|150|4.5|22|5,Chole / Channa|320|13|44|10,Matar chole|110|5.5|17|1.8,Aloo paratha (1 pc)|220|5|32|8.5,Paneer paratha (1 pc)|260|9.5|28|12,Aloo gobhi paratha|200|4.5|30|6.5,Paratha Plain|140|3.5|22|4.5,Chutney / Sauce (1 sp)|45|0.5|8|1.2,Vada|190|4.5|22|9,Pasta|420|10|65|13,Soya besan chila|210|13|24|7,Chila (Besan/sooji/ragi)|160|7|22|5,Paneer bhurji|340|19|7|25,Soya paneer Pulav|580|25|68|20,Malai bread|110|3|14|5,Bread (1 slice)|75|2.5|14|0.8,Biscuit (1 pc)|20|0.4|3.2|0.7,Cookie (1 pc)|45|0.7|6|2,Kachori|250|4.5|28|13,Aloo gobhi|260|4.5|34|12,Ram ladoo (plate)|280|9|32|13,Soya Cutlet (1 pc)|80|4.5|9|2.8,Aloo patties|240|3.5|28|13,Aloo sabzi gravy|280|3.5|38|13,Aloo sabzi dry|190|3|30|6.5,Aloo shimla|260|4|32|13,Aloo tiki|190|3|26|8,Arbi sabzi|180|2.8|28|7,Bhindi sabzi|110|2.5|11|5.5,Aloo baingan|260|3.8|34|12,Aloo gajar|260|3.8|34|12,Aloo patagobhi|260|4|32|12,Atta golgappe plate|190|3.5|34|4.5,Bhaji (pav wali)|320|5.5|38|15,Bhatura homemade|165|4|26|5,Bread pakoda|290|5.5|32|15,Bread roll|240|4.5|30|11,Burger|300|8|38|12,Butter milk+sugar|100|3.5|15|2.5,Butter/Makhan/Malai (1 sp)|70|0.5|0.5|7.5,Desi ghee (1 tsp)|45|0|0|5,Chaap (gravy)|360|14|28|20,Malai chap Half|450|15|26|34,Chocolate (20g)|100|1.2|12|5.5,Dairy milk bar|65|1|8|3.2,Cold drink (500ml)|210|0|53|0,Frooti (150ml)|95|0|24|0,Corn bhutta|100|3.5|21|1.2,Dhokla (1 pc)|50|2|8|1.2,Dosa homemade|150|4|26|3.5,Dosa restaurant|420|8.5|58|17,Fruit Medium|80|1|19|0.3,Fruit Large|150|1.8|36|0.5,Fruit Mini|70|0.8|17|0.2,Gajar Barfi|140|3|18|6,Gajar halwa (200g)|310|6|42|13,Atta halwa|300|4|38|15,Ice cream scoop|180|3|22|9,Ice Cream Stick|150|2.5|18|7.5,Rajma|320|13|42|10,Kadi pakoda|380|10|38|19,Khichdi|290|8.5|46|6.5,Maggi (1 pack)|270|6|40|9.5,Kheer|290|7.5|40|10,Cheese Slice|60|4|0.5|4.8,Pastry|310|3.5|40|15,Jalebi (1 pc)|70|0.5|12|2.2,Khandvi|30|1.5|4|1,Large Snacks/Namkeen|275|5|28|16,Mayo/Cream (1 sp)|70|0.5|1|7,Whey Protein Scoop|120|24|2|1.5,Boiled Egg (1 whole)|72|6.3|0.4|5,White Rice Bowl|195|4|43|0.5,Oats (50g raw)|190|6.5|34|3.5".split(",").map(function(s){var p=s.split("|");return{name:p[0],cal:+p[1],pro:+p[2],carb:+p[3],fat:+p[4]}});
+
+// 230+ EXERCISES DATABASE (Heart, Bodyweight, Chest, Back, Shoulders, Arms, Legs, Core)
+var EDATA="Heart:Outdoor Running:10.5,Heart:Outdoor Sprinting:14,Heart:Treadmill Running:10,Heart:Treadmill Incline Walk:8.5,Heart:Brisk Walking:5.5,Heart:Normal Walking:3.8,Heart:HIIT Sprints:13.5,Heart:Jump Rope / Skipping:11.5,Heart:Jump Rope Speed/Double Unders:13,Heart:Stationary Bike / Cycling:8,Heart:Bike HIIT Sprints:12,Heart:Outdoor Cycling:8.5,Heart:StairMaster / StepMill:9.5,Heart:Building Stair Climbing:10,Heart:Elliptical Cross Trainer:7.5,Heart:Rowing Machine:9,Heart:Rowing HIIT:12.5,Heart:Shadow Boxing:9,Heart:Heavy Bag Boxing:10.5,Heart:Jumping Jacks:8,Heart:High Knees:9.5,Heart:Mountain Climbers Cardio:9.5,Heart:Burpees Cardio:12,Heart:Battle Ropes:11,Heart:Swimming Freestyle:10,Heart:Agility Ladder Drills:8,Heart:Shuttle Runs:11.5,Bodyweight:Standard Push-ups:7,Bodyweight:Wide Push-ups:7,Bodyweight:Diamond Push-ups:7.5,Bodyweight:Decline Push-ups:7.5,Bodyweight:Incline Push-ups:6,Bodyweight:Archer Push-ups:8,Bodyweight:Pike Push-ups:7.5,Bodyweight:Handstand Push-ups Wall:9,Bodyweight:Pull-ups Overhand:8.5,Bodyweight:Chin-ups Underhand:8.5,Bodyweight:Neutral Grip Pull-ups:8.5,Bodyweight:Inverted Bodyweight Rows:7,Bodyweight:Parallel Bar Dips:8,Bodyweight:Bench Tricep Dips:6.5,Bodyweight:Muscle-ups Bar/Rings:11,Bodyweight:Hindu Dand Push-ups:8.5,Bodyweight:Hindu Baithak Squats:7.5,Bodyweight:Pistol Squats Single-Leg:9,Bodyweight:Jump Squats:10,Bodyweight:Walking Lunges:7,Bodyweight:Bulgarian Split Squats BW:7.5,Bodyweight:Glute Bridges BW:6,Bodyweight:Single-Leg Calf Raises:5,Bodyweight:Bear Crawls:9,Bodyweight:Burpees Chest to Floor:12,Bodyweight:L-Sit Hold:7,Bodyweight:Hollow Body Hold:6,Bodyweight:Superman Back Extension:5,Chest:Barbell Bench Press:6.5,Chest:Incline Barbell Press 30deg:6.5,Chest:Incline Barbell Press 45deg:6.5,Chest:Decline Barbell Press:6,Chest:Flat Dumbbell Press:6.5,Chest:Incline Dumbbell Press 30deg:6.5,Chest:Incline Dumbbell Press 45deg:6.5,Chest:Decline Dumbbell Press:6,Chest:Dumbbell Flat Flyes:5.5,Chest:Incline Dumbbell Flyes:5.5,Chest:Cable Crossover High-to-Low:5.5,Chest:Middle Cable Flyes:5.5,Chest:Low-to-High Cable Flyes:5.5,Chest:Pec Deck Machine Fly:5.5,Chest:Seated Chest Press Machine:6,Chest:Incline Chest Press Machine:6,Chest:Smith Machine Flat Bench:6,Chest:Smith Machine Incline Bench:6,Chest:Weighted Chest Dips:8,Chest:Dumbbell Chest Pullover:5.5,Chest:Landmine Standing Chest Press:6.5,Chest:Kneeling Cable Chest Press:6,Chest:Floor Dumbbell Press:6,Chest:Neutral Grip Dumbbell Press:6,Chest:Svend Press Plate:5,Chest:Deficit Push-ups:7.5,Back:Deadlift Barbell:9,Back:Sumo Deadlift:9,Back:Trap Bar Hex Bar Deadlift:8.5,Back:Barbell Bent-Over Row Overhand:7.5,Back:Barbell Bent Row Underhand Yates:7.5,Back:Pendlay Row:8,Back:Lat Pulldown Wide Grip:6.5,Back:Lat Pulldown Close-Grip V-Bar:6.5,Back:Lat Pulldown Underhand Reverse:6.5,Back:Single-Arm Cable Lat Pulldown:6,Back:Seated Cable Row V-Bar:6.5,Back:Seated Cable Row Wide Bar:6.5,Back:One-Arm Dumbbell Row:6.5,Back:Chest-Supported Incline DB Row:6.5,Back:T-Bar Row Chest Supported:7,Back:T-Bar Row Free Weight:7.5,Back:Meadows Row Landmine:7,Back:Straight-Arm Cable Lat Pushdown:5.5,Back:Lat Pullover Machine:6,Back:Cable Face Pulls:5,Back:Back Hyperextensions:5.5,Back:Good Mornings Barbell:6.5,Back:Barbell Shrugs Heavy:5.5,Back:Dumbbell Shrugs Standing:5,Back:Smith Machine Shrugs:5,Back:Cable Shrugs:5,Back:Rack Pulls Above Knee:8,Back:Neutral Grip Weighted Pull-ups:8.5,Back:Kroc Rows Heavy DB:7.5,Back:Incline Bench DB Shrugs:5,Shoulders:Overhead Barbell Military Press:7,Shoulders:Seated Overhead Barbell Press:6.5,Shoulders:Seated Dumbbell Press:6.5,Shoulders:Standing Dumbbell Press:7,Shoulders:Arnold Dumbbell Press:6.5,Shoulders:Smith Machine Shoulder Press:6,Shoulders:Machine Shoulder Press:6,Shoulders:Dumbbell Lateral Raises Standing:5.5,Shoulders:Seated DB Lateral Raises:5.5,Shoulders:Lean-Away Cable Lateral Raises:5.5,Shoulders:Behind-the-Back Cable Lateral:5.5,Shoulders:Dumbbell Front Raises:5,Shoulders:Cable Front Rope Raises:5,Shoulders:Barbell Front Raises:5.5,Shoulders:Plate Front Raises:5,Shoulders:Reverse Pec Deck Rear Delt:5,Shoulders:Seated Bent-Over DB Rear Delt:5,Shoulders:Incline Bench Rear Delt Fly:5,Shoulders:Cable Face Pulls High Pulley:5,Shoulders:Upright Row Barbell:6,Shoulders:Upright Row Cable/EZ Bar:5.5,Shoulders:Single-Arm Landmine Press:6.5,Shoulders:Bradford Press Barbell:6.5,Shoulders:Dumbbell Y-Raises Incline:5,Shoulders:Lu Raises Full Range:6,Arms:Barbell Bicep Curls:5,Arms:EZ-Bar Bicep Curls:5,Arms:Seated Incline Dumbbell Curls:5,Arms:Standing DB Alternating Curls:5,Arms:Dumbbell Hammer Curls:5,Arms:Cable Rope Hammer Curls:5,Arms:Preacher Curls EZ Bar:5,Arms:Preacher Curls DB Single Arm:4.5,Arms:Preacher Machine Curl:5,Arms:Concentration Dumbbell Curls:4.5,Arms:Spider Curls Incline Bench:5,Arms:High Cable Bicep Curls Hercules:5,Arms:Reverse Grip Barbell Curls:5,Arms:Zottman Curls:5,Arms:Drag Curls Barbell:5,Arms:Cable Straight Bar Bicep Curls:5,Arms:Tricep Cable Rope Pushdown:5,Arms:Tricep Cable Straight Bar Pushdown:5,Arms:Tricep Cable V-Bar Pushdown:5,Arms:Overhead Cable Rope Tricep Ext:5.5,Arms:Seated Overhead DB Tricep Ext:5.5,Arms:Standing Overhead EZ-Bar Ext:5.5,Arms:EZ-Bar Skull Crushers Flat:5.5,Arms:Incline DB Skull Crushers:5.5,Arms:Close-Grip Barbell Bench Press:6.5,Arms:Single-Arm Cable Kickbacks:4.5,Arms:Dumbbell Tricep Kickbacks:4.5,Arms:Weighted Bench Tricep Dips:6.5,Arms:JM Press Barbell:6.5,Arms:Tate Press Dumbbell:5.5,Arms:Barbell Wrist Curls Palms Up:4,Arms:Reverse Barbell Wrist Curls:4,Arms:Behind-Back Barbell Wrist Curls:4,Arms:Farmer's Walk Grip Carries:7.5,Arms:Plate Pinch Holds Grip:5,Legs:Barbell Back Squat High Bar:9,Legs:Barbell Back Squat Low Bar:9,Legs:Barbell Front Squat:9,Legs:45deg Leg Press Heavy:8,Legs:Leg Press High & Wide Stance:8,Legs:Hack Squat Machine:8.5,Legs:V-Squat Machine:8,Legs:Smith Machine Squats:8,Legs:Romanian Deadlift Barbell RDL:8,Legs:Romanian Deadlift DB RDL:7.5,Legs:Stiff-Legged Deadlift:8,Legs:Bulgarian Split Squats DB:8.5,Legs:Bulgarian Split Squats Barbell:8.5,Legs:Walking Dumbbell Lunges:7.5,Legs:Barbell Reverse Lunges:7.5,Legs:Goblet Squats Heavy DB:7,Legs:Leg Extension Machine:6,Legs:Single-Leg Extension Machine:6,Legs:Lying Hamstring Leg Curls:6,Legs:Seated Hamstring Leg Curls:6,Legs:Standing Single-Leg Hamstring Curl:6,Legs:Barbell Hip Thrusts Glutes:7.5,Legs:Dumbbell Hip Thrusts:6.5,Legs:Cable Glute Kickbacks:5,Legs:Cable Pull-Throughs:6,Legs:Sissy Squats BW/Machine:6.5,Legs:Standing Calf Raises Machine:5,Legs:Seated Calf Raises Soleus:4.5,Legs:Leg Press Calf Press:5,Legs:Donkey Calf Raises:5,Legs:Single-Leg DB Calf Raises:4.5,Legs:Adductor Machine Inner Thigh:5,Legs:Abductor Machine Glute Med:5,Legs:Zercher Squat:8.5,Legs:Box Squats Barbell:8,Core:Hanging Leg Raises Strict:6.5,Core:Hanging Knee Raises:6,Core:Captain's Chair Leg Raises:6,Core:Kneeling Cable Crunches Rope:6,Core:Ab Wheel Rollout Kneeling:6.5,Core:Ab Wheel Rollout Standing:8,Core:Decline Bench Weighted Crunches:6,Core:Russian Twists Weighted:6,Core:Cable Woodchoppers High-to-Low:6,Core:Cable Woodchoppers Low-to-High:6,Core:Bicycle Crunches Slow:6,Core:Planks Weighted Core Hold:5,Core:Side Planks Dips:5.5,Core:Dragon Flags:8,Core:Reverse Crunches Flat Bench:5.5,Core:L-Sit Hold:7,Core:V-Ups Toe Touch:6,Core:Hollow Body Rock/Hold:6,Core:Bird Dog Stability:5,Core:Dead Bug Core:5,Core:Suitcase Carries Single-Arm:6.5,Core:Standing DB Side Bends:5,Core:Cable Pallof Press:5,Core:Flutter Kicks:5.5,Core:Scissor Kicks:5.5".split(",").map(function(s){var p=s.split(":");return{group:p[0],name:p[1],cpm:+p[2]}});
 
 var curDt=new Date().toISOString().split('T')[0], selF=FDATA[0], yr=new Date().getFullYear(), mo=new Date().getMonth(), inDt=curDt;
 var DB={cfg:{cal:1700,pro:120,stWt:57,glWt:65},custom:[],meals:{},work:{},stat:{}};
-try{var sv=localStorage.getItem('ash_v5')||window.name;if(sv&&sv.indexOf('{')===0)DB=JSON.parse(sv);}catch(e){}
+try{var sv=localStorage.getItem('ash_os_v6')||window.name;if(sv&&sv.indexOf('{')===0)DB=JSON.parse(sv);}catch(e){}
 
 function save(){
   var s=JSON.stringify(DB);
-  try{localStorage.setItem('ash_v5',s)}catch(e){}
+  try{localStorage.setItem('ash_os_v6',s)}catch(e){}
   try{window.name=s}catch(e){}
   upUI();
 }
@@ -304,6 +339,42 @@ function newFood(){
   DB.custom.unshift({name:n,cal:c,pro:p,carb:cb,fat:f});
   $('nf-n').value='';$('nf-c').value='';save();rFoods();
 }
+
+// INGREDIENTS MACRO CALCULATOR ENGINE
+var RAW_RATES = {
+  atta: {c:3.4, p:0.12, cb:0.7, f:0.015, name:"Atta"},
+  rice: {c:3.5, p:0.07, cb:0.78, f:0.005, name:"Rice"},
+  dal: {c:3.4, p:0.24, cb:0.58, f:0.012, name:"Dal"},
+  soya: {c:3.45, p:0.52, cb:0.33, f:0.005, name:"Soya Chunks"},
+  paneer: {c:2.7, p:0.19, cb:0.03, f:0.21, name:"Paneer"},
+  ghee: {c:9.0, p:0, cb:0, f:1.0, name:"Ghee/Oil"},
+  potato: {c:0.77, p:0.02, cb:0.17, f:0.001, name:"Aloo"},
+  milk: {c:0.6, p:0.032, cb:0.05, f:0.03, name:"Milk"},
+  sugar: {c:3.9, p:0, cb:1.0, f:0, name:"Sugar"}
+};
+function calcRawMacro(){
+  var k=$('raw-pick').value, g=parseFloat($('raw-g').value)||0, r=RAW_RATES[k];
+  $('raw-res-c').value = Math.round(g * r.c);
+  $('raw-res-p').value = (g * r.p).toFixed(1);
+  $('raw-res-cb').value = (g * r.cb).toFixed(1);
+  $('raw-res-f').value = (g * r.f).toFixed(1);
+}
+function logRawToFood(){
+  var k=$('raw-pick').value, g=parseFloat($('raw-g').value)||0, r=RAW_RATES[k];
+  if(!g)return alert('Enter grams!');
+  if(!DB.meals[curDt])DB.meals[curDt]=[];
+  DB.meals[curDt].push({
+    id:Date.now(),
+    name: r.name+" ("+g+"g raw)",
+    srv: 1,
+    cal: Math.round(g * r.c),
+    pro: +(g * r.p).toFixed(1),
+    carb: +(g * r.cb).toFixed(1),
+    fat: +(g * r.f).toFixed(1)
+  });
+  save();rStrip();alert("Ingredient Added to Today's Meals!");
+}
+
 function rEx(){
   var c=$('w-cat').value, s=$('w-ex');s.innerHTML='';
   EDATA.forEach(function(x){if(c==='all'||x.group===c)s.innerHTML+='<option value="'+x.name+'">['+x.group+'] '+x.name+'</option>';});
@@ -368,47 +439,4 @@ function upUI(){
     fb.innerHTML+='<div class="lrow"><div><h4>'+m.name+' ('+m.srv+'x)</h4><p><strong style="color:var(--gn)">'+m.cal+' kcal</strong> • '+m.pro+'g P • '+m.carb+'g C • '+m.fat+'g F</p></div><div><button class="bsm bedt" onclick="edtF('+m.id+')">Edit</button> <button class="bsm bdel" onclick="delF('+m.id+')">Del</button></div></div>';
   });
 
-  var wb=$('wlog'); wb.innerHTML=ws.length?'':'<p style="font-size:.7rem;color:var(--mt)">No workout logged today.</p>';
-  ws.forEach(function(w){
-    var dt=w.dlt!==null?' <span style="color:'+(w.dlt>=0?'var(--gn)':'var(--rd)')+';font-weight:800">'+(w.dlt>=0?'▲+':'▼')+w.dlt+'% (15d)</span>':'';
-    wb.innerHTML+='<div class="lrow"><div><h4>['+w.grp+'] '+w.name+'</h4><p>'+w.set+'x'+w.rep+' @ '+w.wt+'kg ('+w.min+'m) • <strong style="color:var(--am)">🔥 '+w.brn+' kcal</strong>'+dt+'</p></div><div><button class="bsm bedt" onclick="edtW('+w.id+')">Edit</button> <button class="bsm bdel" onclick="delW('+w.id+')">Del</button></div></div>';
-  });
-
-  var wc=0, wd=0, wb7=0, wv7=0, nms=new Date(curDt).getTime();
-  for(var i=0;i<7;i++){
-    var k=new Date(nms-i*86400000).toISOString().split('T')[0];
-    if(DB.meals[k]&&DB.meals[k].length){DB.meals[k].forEach(function(x){wc+=x.cal});wd++;}
-    if(DB.work[k]&&DB.work[k].length){DB.work[k].forEach(function(x){wb7+=x.brn;wv7+=x.vol});}
-  }
-  $('in-avg').innerText=(wd?Math.round(wc/wd):0)+' kcal'; $('in-brn').innerText=wb7+' kcal'; $('in-vol').innerText=wv7+'kg'; $('in-act').innerText=stCnt+' Days';
-}
-function cMo(d){mo+=d;if(mo<0){mo=11;yr--}if(mo>11){mo=0;yr++}rCal();}
-function rCal(){
-  var mN=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
-  $('m-tit').innerText=mN[mo]+' '+yr;
-  var f=new Date(yr,mo,1).getDay(), ds=new Date(yr,mo+1,0).getDate(), g=$('mgrid'); g.innerHTML='';
-  for(var i=0;i<f;i++)g.innerHTML+='<div class="mc emp"></div>';
-  for(var d=1;d<=ds;d++){
-    var iso=yr+'-'+String(mo+1).padStart(2,'0')+'-'+String(d).padStart(2,'0');
-    var has=(DB.meals[iso]&&DB.meals[iso].length)||(DB.work[iso]&&DB.work[iso].length)||DB.stat[iso];
-    var el=document.createElement('div');
-    el.className='mc'+(has?' has':'')+(iso===inDt?' sel':'');
-    el.innerText=d;
-    (function(dt){el.onclick=function(){sRep(dt);rCal();};})(iso);
-    g.appendChild(el);
-  }
-}
-function sRep(iso){
-  inDt=iso; $('r-tit').innerText='📅 Report: '+iso;
-  var ms=DB.meals[iso]||[], ws=DB.work[iso]||[], st=DB.stat[iso]||{}, e=0, p=0, b=0;
-  ms.forEach(function(x){e+=x.cal;p+=x.pro}); ws.forEach(function(x){b+=x.brn});
-  $('r-eat').innerText=e+' kcal'; $('r-brn').innerText=b+' kcal'; $('r-pro').innerText=p.toFixed(1)+'g'; $('r-wt').innerText=st.wt?st.wt+'kg':'--';
-  var rf=$('r-fl'); rf.innerHTML=ms.length?'':'<p style="font-size:.68rem;color:var(--mt)">No food logged.</p>';
-  ms.forEach(function(m){rf.innerHTML+='<div class="lrow"><h4>'+m.name+' ('+m.srv+'x)</h4><p>'+m.cal+' kcal • '+m.pro+'g P</p></div>';});
-  var rw=$('r-wl'); rw.innerHTML=ws.length?'':'<p style="font-size:.68rem;color:var(--mt)">No workout logged.</p>';
-  ws.forEach(function(w){rw.innerHTML+='<div class="lrow"><h4>['+w.grp+'] '+w.name+'</h4><p>'+w.set+'x'+w.rep+' @ '+w.wt+'kg • 🔥 '+w.brn+' kcal</p></div>';});
-}
-function editDay(){curDt=inDt;rStrip();upUI();tab('food');}
-rStrip();rFoods();sSrv(1);rEx();upUI();
-</script>
-</html>
+  var wb=$('wlog'); wb.innerHTML=ws.length?'':'<p style="font-size:.7rem;color:var(--mt)">No workout logged to
