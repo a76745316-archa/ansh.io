@@ -120,8 +120,7 @@ nav.bbar{position:fixed;bottom:0;left:0;width:100%;background:#111726;border-top
       <div class="ctit">🥘 Manage Custom Foods</div>
       <button class="bsm bedt" onclick="openNewFoodPrompt()">+ New Food</button>
     </div>
-    <input type="text" id="fsrc" placeholder="🔍 Search food (Roti, Dal, Momos, Chaap)..." oninput="rFoods()">
-    
+    <input type="text" id="fsrc" placeholder="🔍 Search food (Roti, Dal, Momos, Soya, Chaap)..." oninput="rFoods()">
     <div class="flist" id="flist"></div>
 
     <div style="background:var(--alt);border:1px solid var(--ac);border-radius:10px;padding:10px;margin-bottom:9px">
@@ -131,7 +130,7 @@ nav.bbar{position:fixed;bottom:0;left:0;width:100%;background:#111726;border-top
         <div class="sp" onclick="sSrv(0.25)">0.25</div><div class="sp" onclick="sSrv(0.5)">0.5</div><div class="sp" onclick="sSrv(0.75)">0.75</div><div class="sp active" onclick="sSrv(1)">1</div><div class="sp" onclick="sSrv(1.5)">1.5</div><div class="sp" onclick="sSrv(2)">2</div><div class="sp" onclick="sSrv(2.5)">2.5</div><div class="sp" onclick="sSrv(3)">3</div>
       </div>
       <div class="g2">
-        <div><label>Servings (Decimal)</label><input type="number" step="0.05" id="s-srv" value="1" oninput="cFood()"></div>
+        <div><label>Servings</label><input type="number" step="0.05" id="s-srv" value="1" oninput="cFood()"></div>
         <div><label>Calories</label><input type="number" id="s-cal" readonly style="color:var(--gn)"></div>
       </div>
       <div class="g3">
@@ -161,10 +160,9 @@ nav.bbar{position:fixed;bottom:0;left:0;width:100%;background:#111726;border-top
       </div>
     </details>
   </div>
-
   <div class="card"><div class="chd"><div class="ctit">📋 Today's Food Log</div></div><div id="flog"></div></div>
-  </div>
-  <!-- 3. WORKOUT SECTION -->
+      </div>
+      <!-- 3. WORKOUT SECTION -->
 <div id="s-work" class="scr">
   <div class="card">
     <div class="chd"><div class="ctit">🏋️ Exercise & Heart Logger (250+)</div></div>
@@ -239,7 +237,6 @@ nav.bbar{position:fixed;bottom:0;left:0;width:100%;background:#111726;border-top
 <script>
 function $(i){return document.getElementById(i)}
 
-// ALL 85+ SCREENSHOT FOODS DATA PRELOADED
 var F_DEFAULTS = [
   {name:"Spring roll",cal:130,u:"1/2 serving",p:2.5,c:16,f:6},
   {name:"Roti",cal:100,u:"1 serving",p:3.2,c:20,f:0.8},
@@ -362,7 +359,6 @@ var F_DEFAULTS = [
 ];
 </script>
 <script>
-// 254 EXERCISES (HEART, BODYWEIGHT, GYM)
 var EDATA="Heart:Outdoor Running:10.5,Heart:Outdoor Sprinting:14,Heart:Treadmill Running:10,Heart:Treadmill Incline Walk:8.5,Heart:Brisk Walking:5.5,Heart:Normal Walking:3.8,Heart:HIIT Sprints:13.5,Heart:Jump Rope / Skipping:11.5,Heart:Double Unders Skipping:13,Heart:Stationary Bike / Cycling:8,Heart:Spin Bike HIIT:12,Heart:Outdoor Cycling:8.5,Heart:StairMaster / StepMill:9.5,Heart:Building Stair Climbing:10,Heart:Elliptical Cross Trainer:7.5,Heart:Rowing Machine Cardio:9,Heart:Rowing Machine HIIT:12.5,Heart:Shadow Boxing Fast:9,Heart:Heavy Punching Bag:10.5,Heart:Jumping Jacks Cardio:8,Heart:High Knees Running:9.5,Heart:Mountain Climbers Cardio:9.5,Heart:Burpees Cardio:12,Heart:Battle Ropes Waves:11,Heart:Freestyle Swimming:10,Heart:Agility Ladder Drills:8,Heart:Shuttle Run Sprints:11.5,Heart:Bear Crawls Cardio:9,Heart:Box Jumps Plyometric:10,Heart:A-Skips Track Drill:8,Bodyweight:Standard Push-ups:7,Bodyweight:Wide Grip Push-ups:7,Bodyweight:Diamond Push-ups:7.5,Bodyweight:Decline Push-ups:7.5,Bodyweight:Incline Push-ups:6,Bodyweight:Archer Push-ups:8,Bodyweight:Pike Push-ups:7.5,Bodyweight:Handstand Push-ups Wall:9,Bodyweight:Pull-ups Overhand:8.5,Bodyweight:Chin-ups Underhand:8.5,Bodyweight:Neutral Grip Pull-ups:8.5,Bodyweight:Inverted Bodyweight Rows:7,Bodyweight:Parallel Bar Dips:8,Bodyweight:Bench Tricep Dips:6.5,Bodyweight:Muscle-ups Bar:11,Bodyweight:Hindu Dand Push-ups:8.5,Bodyweight:Hindu Baithak Squats:7.5,Bodyweight:Pistol Squats Single-Leg:9,Bodyweight:Jump Squats:10,Bodyweight:Walking Lunges:7,Bodyweight:Bulgarian Split Squats BW:7.5,Bodyweight:Glute Bridges BW:6,Bodyweight:Single-Leg Calf Raises:5,Bodyweight:Burpees Full Chest-to-Floor:12,Bodyweight:L-Sit Hold:7,Bodyweight:Hollow Body Hold:6,Bodyweight:Superman Back Ext:5,Bodyweight:Plank Hold:5,Bodyweight:Side Plank Hold:5.5,Bodyweight:Dragon Flags:8,Bodyweight:Hanging Knee Raises:6,Bodyweight:Hanging Leg Raises:6.5,Chest:Barbell Bench Press:6.5,Chest:Incline Barbell Press 30deg:6.5,Chest:Incline Barbell Press 45deg:6.5,Chest:Decline Barbell Press:6,Chest:Flat Dumbbell Press:6.5,Chest:Incline Dumbbell Press 30deg:6.5,Chest:Incline Dumbbell Press 45deg:6.5,Chest:Decline Dumbbell Press:6,Chest:Flat Dumbbell Flyes:5.5,Chest:Incline Dumbbell Flyes:5.5,Chest:Cable Crossover High-to-Low:5.5,Chest:Middle Cable Flyes:5.5,Chest:Low-to-High Cable Flyes:5.5,Chest:Pec Deck Machine Fly:5.5,Chest:Seated Chest Press Machine:6,Chest:Incline Chest Press Machine:6,Chest:Smith Machine Flat Bench:6,Chest:Smith Machine Incline Bench:6,Chest:Weighted Chest Dips:8,Chest:Dumbbell Chest Pullover:5.5,Chest:Landmine Standing Chest Press:6.5,Chest:Kneeling Cable Chest Press:6,Chest:Floor Dumbbell Press:6,Chest:Neutral Grip DB Press:6,Chest:Svend Press Plate:5,Chest:Deficit Push-ups:7.5,Chest:Close-Grip Incline Press:6.5,Chest:Guillotine Press:6,Chest:Hex Press Dumbbell:6,Chest:Cable Iron Cross:5.5,Chest:Pin Press Bench:7,Chest:Spoto Press Bench:7,Back:Deadlift Barbell:9,Back:Sumo Deadlift:9,Back:Trap Bar Hex Bar Deadlift:8.5,Back:Barbell Bent-Over Row Overhand:7.5,Back:Barbell Bent Row Underhand:7.5,Back:Pendlay Row:8,Back:Lat Pulldown Wide Grip:6.5,Back:Lat Pulldown Close-Grip V-Bar:6.5,Back:Lat Pulldown Underhand Reverse:6.5,Back:Single-Arm Cable Lat Pulldown:6,Back:Seated Cable Row V-Bar:6.5,Back:Seated Cable Row Wide Bar:6.5,Back:One-Arm Dumbbell Row:6.5,Back:Chest-Supported Incline DB Row:6.5,Back:T-Bar Row Chest Supported:7,Back:T-Bar Row Free Weight:7.5,Back:Meadows Row Landmine:7,Back:Straight-Arm Cable Lat Pushdown:5.5,Back:Lat Pullover Machine:6,Back:Cable Face Pulls:5,Back:Back Hyperextensions:5.5,Back:Good Mornings Barbell:6.5,Back:Barbell Shrugs Heavy:5.5,Back:Dumbbell Shrugs Standing:5,Back:Smith Machine Shrugs:5,Back:Cable Shrugs:5,Back:Rack Pulls Above Knee:8,Back:Neutral Grip Weighted Pull-ups:8.5,Back:Kroc Rows Heavy DB:7.5,Back:Incline Bench DB Shrugs:5,Back:Seal Row Bench:7,Back:Deficit Deadlift:9,Back:Snatch Grip Deadlift:9,Back:Single Arm Cable Row:6,Back:Wide Grip Cable Row:6.5,Shoulders:Overhead Barbell Military Press:7,Shoulders:Seated Overhead Barbell Press:6.5,Shoulders:Seated Dumbbell Press:6.5,Shoulders:Standing Dumbbell Press:7,Shoulders:Arnold Dumbbell Press:6.5,Shoulders:Smith Machine Shoulder Press:6,Shoulders:Machine Shoulder Press:6,Shoulders:Dumbbell Lateral Raises Standing:5.5,Shoulders:Seated DB Lateral Raises:5.5,Shoulders:Lean-Away Cable Lateral Raises:5.5,Shoulders:Behind-the-Back Cable Lateral:5.5,Shoulders:Dumbbell Front Raises:5,Shoulders:Cable Front Rope Raises:5,Shoulders:Barbell Front Raises:5.5,Shoulders:Plate Front Raises:5,Shoulders:Reverse Pec Deck Rear Delt:5,Shoulders:Seated Bent-Over DB Rear Delt:5,Shoulders:Incline Bench Rear Delt Fly:5,Shoulders:Cable Face Pulls High Pulley:5,Shoulders:Upright Row Barbell:6,Shoulders:Upright Row Cable/EZ Bar:5.5,Shoulders:Single-Arm Landmine Press:6.5,Shoulders:Bradford Press Barbell:6.5,Shoulders:Dumbbell Y-Raises Incline:5,Shoulders:Lu Raises Full Range:6,Shoulders:Push Press Barbell:7.5,Shoulders:Dumbbell Scaption:5,Shoulders:Z-Press Seated Floor:7,Shoulders:Cable Rear Delt Flyes:5,Shoulders:Cuban Press Rotation:5,Arms:Barbell Bicep Curls:5,Arms:EZ-Bar Bicep Curls:5,Arms:Seated Incline Dumbbell Curls:5,Arms:Standing DB Alternating Curls:5,Arms:Dumbbell Hammer Curls:5,Arms:Cable Rope Hammer Curls:5,Arms:Preacher Curls EZ Bar:5,Arms:Preacher Curls DB Single Arm:4.5,Arms:Preacher Machine Curl:5,Arms:Concentration Dumbbell Curls:4.5,Arms:Spider Curls Incline Bench:5,Arms:High Cable Bicep Curls Hercules:5,Arms:Reverse Grip Barbell Curls:5,Arms:Zottman Curls:5,Arms:Drag Curls Barbell:5,Arms:Cable Straight Bar Bicep Curls:5,Arms:Tricep Cable Rope Pushdown:5,Arms:Tricep Cable Straight Bar Pushdown:5,Arms:Tricep Cable V-Bar Pushdown:5,Arms:Overhead Cable Rope Tricep Ext:5.5,Arms:Seated Overhead DB Tricep Ext:5.5,Arms:Standing Overhead EZ-Bar Ext:5.5,Arms:EZ-Bar Skull Crushers Flat:5.5,Arms:Incline DB Skull Crushers:5.5,Arms:Close-Grip Barbell Bench Press:6.5,Arms:Single-Arm Cable Kickbacks:4.5,Arms:Dumbbell Tricep Kickbacks:4.5,Arms:Weighted Bench Tricep Dips:6.5,Arms:JM Press Barbell:6.5,Arms:Tate Press Dumbbell:5.5,Arms:Barbell Wrist Curls Palms Up:4,Arms:Reverse Barbell Wrist Curls:4,Arms:Behind-Back Barbell Wrist Curls:4,Arms:Farmer's Walk Grip Carries:7.5,Arms:Plate Pinch Holds Grip:5,Legs:Barbell Back Squat High Bar:9,Legs:Barbell Back Squat Low Bar:9,Legs:Barbell Front Squat:9,Legs:45deg Leg Press Heavy:8,Legs:Leg Press High & Wide Stance:8,Legs:Hack Squat Machine:8.5,Legs:V-Squat Machine:8,Legs:Smith Machine Squats:8,Legs:Romanian Deadlift Barbell RDL:8,Legs:Romanian Deadlift DB RDL:7.5,Legs:Stiff-Legged Deadlift:8,Legs:Bulgarian Split Squats DB:8.5,Legs:Bulgarian Split Squats Barbell:8.5,Legs:Walking Dumbbell Lunges:7.5,Legs:Barbell Reverse Lunges:7.5,Legs:Goblet Squats Heavy DB:7,Legs:Leg Extension Machine:6,Legs:Single-Leg Extension Machine:6,Legs:Lying Hamstring Leg Curls:6,Legs:Seated Hamstring Leg Curls:6,Legs:Standing Single-Leg Hamstring Curl:6,Legs:Barbell Hip Thrusts Glutes:7.5,Legs:Dumbbell Hip Thrusts:6.5,Legs:Cable Glute Kickbacks:5,Legs:Cable Pull-Throughs:6,Legs:Sissy Squats BW/Machine:6.5,Legs:Standing Calf Raises Machine:5,Legs:Seated Calf Raises Soleus:4.5,Legs:Leg Press Calf Press:5,Legs:Donkey Calf Raises:5,Legs:Single-Leg DB Calf Raises:4.5,Legs:Adductor Machine Inner Thigh:5,Legs:Abductor Machine Glute Med:5,Legs:Zercher Squat:8.5,Legs:Box Squats Barbell:8,Core:Hanging Leg Raises Strict:6.5,Core:Hanging Knee Raises:6,Core:Captain's Chair Leg Raises:6,Core:Kneeling Cable Crunches Rope:6,Core:Ab Wheel Rollout Kneeling:6.5,Core:Ab Wheel Rollout Standing:8,Core:Decline Bench Weighted Crunches:6,Core:Russian Twists Weighted:6,Core:Cable Woodchoppers High-to-Low:6,Core:Cable Woodchoppers Low-to-High:6,Core:Bicycle Crunches Slow:6,Core:Planks Weighted Core Hold:5,Core:Side Planks Dips:5.5,Core:Dragon Flags:8,Core:Reverse Crunches Flat Bench:5.5,Core:L-Sit Hold:7,Core:V-Ups Toe Touch:6,Core:Hollow Body Rock/Hold:6,Core:Bird Dog Stability:5,Core:Dead Bug Core:5,Core:Suitcase Carries Single-Arm:6.5,Core:Standing DB Side Bends:5,Core:Cable Pallof Press:5,Core:Flutter Kicks:5.5,Core:Scissor Kicks:5.5".split(",").map(function(s){var p=s.split(":");return{group:p[0],name:p[1],cpm:+p[2]}});
 
 var curDt = new Date().toISOString().split('T')[0];
@@ -378,7 +374,7 @@ var DB = {
 };
 
 try {
-  var sv = localStorage.getItem('ash_os_v9') || window.name;
+  var sv = localStorage.getItem('ash_os_v10') || window.name;
   if(sv && sv.indexOf('{') === 0) {
     var parsed = JSON.parse(sv);
     if(parsed.foods && parsed.foods.length) DB.foods = parsed.foods;
@@ -393,7 +389,7 @@ selF = DB.foods[0];
 
 function save(){
   var s = JSON.stringify(DB);
-  try{localStorage.setItem('ash_os_v9', s)}catch(e){}
+  try{localStorage.setItem('ash_os_v10', s)}catch(e){}
   try{window.name = s}catch(e){}
   upUI();
 }
@@ -580,7 +576,8 @@ function saveMasterFood(){
   $('sf-nm').innerText = selF.name;
   sSrv(1);
 }
-
+</script>
+<script>
 function rEx(){
   var c = $('w-cat').value;
   var s = $('w-ex');
@@ -660,8 +657,8 @@ function saveProf(){
   DB.stat[curDt] = {wt:wt || p.wt || null, bf:bf || p.bf || null, wst:wst || p.wst || null, arm:arm || p.arm || null};
   save(); rStrip(); alert('Profile Saved for ' + curDt + '!');
 }
-style="color:var(--gn)">' + m.cal + ' kcal</strong> • ' + m.pro + 'g P • ' + m.carb + 'g C • ' + m.fat + 'g F</p></
-  function upUI(){
+
+function upUI(){
   var sk = Object.keys(DB.stat).sort().reverse();
   var ls = sk.length ? DB.stat[sk[0]] : {};
   var s = DB.stat[curDt] || ls;
