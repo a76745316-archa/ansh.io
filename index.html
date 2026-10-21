@@ -242,13 +242,14 @@ nav.bbar{position:fixed;bottom:0;left:0;width:100%;background:#111726;border-top
     <label>🏋️ Workouts Done:</label><div id="r-wl"></div>
   </div>
 </div>
+
 <nav class="bbar">
   <button class="nbtn active" id="nb-prof" onclick="tab('prof')"><span>👤</span>Profile</button>
   <button class="nbtn" id="nb-food" onclick="tab('food')"><span>🥘</span>Food</button>
   <button class="nbtn" id="nb-work" onclick="tab('work')"><span>🏋️</span>Workout</button>
   <button class="nbtn" id="nb-ins" onclick="tab('ins')"><span>📊</span>Insights</button>
-</nav>
-<script>
+          </nav>
+          <script>
 function $(i){return document.getElementById(i)}
 
 // CALIBRATED FOOD LIST (ICMR & INDIAN MACROS ACCURATE)
@@ -439,4 +440,48 @@ function upUI(){
     fb.innerHTML+='<div class="lrow"><div><h4>'+m.name+' ('+m.srv+'x)</h4><p><strong style="color:var(--gn)">'+m.cal+' kcal</strong> • '+m.pro+'g P • '+m.carb+'g C • '+m.fat+'g F</p></div><div><button class="bsm bedt" onclick="edtF('+m.id+')">Edit</button> <button class="bsm bdel" onclick="delF('+m.id+')">Del</button></div></div>';
   });
 
-  var wb=$('wlog'); wb.innerHTML=ws.length?'':'<p style="font-size:.7rem;color:var(--mt)">No workout logged to
+  var wb=$('wlog'); wb.innerHTML=ws.length?'':'<p style="font-size:.7rem;color:var(--mt)">No workout logged today.</p>';
+  ws.forEach(function(w){
+    var dt=w.dlt!==null?' <span style="color:'+(w.dlt>=0?'var(--gn)':'var(--rd)')+';font-weight:800">'+(w.dlt>=0?'▲+':'▼')+w.dlt+'% (15d)</span>':'';
+    wb.innerHTML+='<div class="lrow"><div><h4>['+w.grp+'] '+w.name+'</h4><p>'+w.set+'x'+w.rep+' @ '+w.wt+'kg ('+w.min+'m) • <strong style="color:var(--am)">🔥 '+w.brn+' kcal</strong>'+dt+'</p></div><div><button class="bsm bedt" onclick="edtW('+w.id+')">Edit</button> <button class="bsm bdel" onclick="delW('+w.id+')">Del</button></div></div>';
+  });
+
+  var wc=0, wd=0, wb7=0, wv7=0, nms=new Date(curDt).getTime();
+  for(var i=0;i<7;i++){
+    var k=new Date(nms-i*86400000).toISOString().split('T')[0];
+    if(DB.meals[k]&&DB.meals[k].length){DB.meals[k].forEach(function(x){wc+=x.cal});wd++;}
+    if(DB.work[k]&&DB.work[k].length){DB.work[k].forEach(function(x){wb7+=x.brn;wv7+=x.vol});}
+  }
+  $('in-avg').innerText=(wd?Math.round(wc/wd):0)+' kcal'; $('in-brn').innerText=wb7+' kcal'; $('in-vol').innerText=wv7+'kg'; $('in-act').innerText=stCnt+' Days';
+}
+function cMo(d){mo+=d;if(mo<0){mo=11;yr--}if(mo>11){mo=0;yr++}rCal();}
+function rCal(){
+  var mN=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+  $('m-tit').innerText=mN[mo]+' '+yr;
+  var f=new Date(yr,mo,1).getDay(), ds=new Date(yr,mo+1,0).getDate(), g=$('mgrid'); g.innerHTML='';
+  for(var i=0;i<f;i++)g.innerHTML+='<div class="mc emp"></div>';
+  for(var d=1;d<=ds;d++){
+    var iso=yr+'-'+String(mo+1).padStart(2,'0')+'-'+String(d).padStart(2,'0');
+    var has=(DB.meals[iso]&&DB.meals[iso].length)||(DB.work[iso]&&DB.work[iso].length)||DB.stat[iso];
+    var el=document.createElement('div');
+    el.className='mc'+(has?' has':'')+(iso===inDt?' sel':'');
+    el.innerText=d;
+    (function(dt){el.onclick=function(){sRep(dt);rCal();};})(iso);
+    g.appendChild(el);
+  }
+}
+function sRep(iso){
+  inDt=iso; $('r-tit').innerText='📅 Report: '+iso;
+  var ms=DB.meals[iso]||[], ws=DB.work[iso]||[], st=DB.stat[iso]||{}, e=0, p=0, b=0;
+  ms.forEach(function(x){e+=x.cal;p+=x.pro}); ws.forEach(function(x){b+=x.brn});
+  $('r-eat').innerText=e+' kcal'; $('r-brn').innerText=b+' kcal'; $('r-pro').innerText=p.toFixed(1)+'g'; $('r-wt').innerText=st.wt?st.wt+'kg':'--';
+  var rf=$('r-fl'); rf.innerHTML=ms.length?'':'<p style="font-size:.68rem;color:var(--mt)">No food logged.</p>';
+  ms.forEach(function(m){rf.innerHTML+='<div class="lrow"><h4>'+m.name+' ('+m.srv+'x)</h4><p>'+m.cal+' kcal • '+m.pro+'g P</p></div>';});
+  var rw=$('r-wl'); rw.innerHTML=ws.length?'':'<p style="font-size:.68rem;color:var(--mt)">No workout logged.</p>';
+  ws.forEach(function(w){rw.innerHTML+='<div class="lrow"><h4>['+w.grp+'] '+w.name+'</h4><p>'+w.set+'x'+w.rep+' @ '+w.wt+'kg • 🔥 '+w.brn+' kcal</p></div>';});
+}
+function editDay(){curDt=inDt;rStrip();upUI();tab('food');}
+
+rStrip();rFoods();sSrv(1);rEx();calcRawMacro();upUI();
+</script>
+</html>
